@@ -30,6 +30,7 @@ public class AdventureLoader {
     public void loadGame() throws IOException {
         parseRooms();
         parseObjects();
+        parseClues();
         parseSynonyms();
         this.game.setHelpText(parseOtherFile("help"));
     }
@@ -107,6 +108,26 @@ public class AdventureLoader {
             Room location = this.game.getRooms().get(i);
             AdventureObject object = new AdventureObject(objectName, objectDescription, location);
             location.addGameObject(object);
+        }
+
+    }
+
+    public void parseClues() throws IOException {
+
+        String cluesFileName = this.adventureName + "/clues.txt";
+        BufferedReader buff = new BufferedReader(new FileReader(cluesFileName));
+
+        while (buff.ready()) {
+            String clueName = buff.readLine();
+            String clueDescription = buff.readLine();
+            String clueLocation = buff.readLine();
+            String separator = buff.readLine();
+            if (separator != null && !separator.isEmpty())
+                System.out.println("Formatting Error!");
+            int i = Integer.parseInt(clueLocation);
+            Room location = this.game.getRooms().get(i);
+            AdventureClue clue = new AdventureClue(clueName, clueDescription, location);
+            location.addGameClue(clue);
         }
 
     }
