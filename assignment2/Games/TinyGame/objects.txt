@@ -4,15 +4,15 @@ Strands of enigmatic black hair, potential link to the culprit.
 
 BROKEN_GLASS 
 Shattered shards hint at a forced entry or struggle.
-2
+9
 
 FOOTPRINT
 Faint footprint, a silent witness to the intruder's presence.
-3
+11
 
 GUN
 A cold, discarded weapon - the tool of a deadly act.
-3
+7
 
 KEY
 Unusual key, unlocking secrets or pointing to an accomplice.
@@ -20,4 +20,16 @@ Unusual key, unlocking secrets or pointing to an accomplice.
 
 KNIFE
 Blood-stained blade, the silent storyteller of a violent confrontation.
+6
+
+POISONOUS_PLANT
+A plantation full of poison, waiting for unsuspecting victims to enter its lush but deadly embrace
+11
+
+JOURNAL
+A journal with "Why am I dying to live if I'm just living to die?" written as its last sentence
 3
+
+PEN
+A normal pen
+10
