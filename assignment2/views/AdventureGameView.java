@@ -25,6 +25,7 @@ import javafx.event.EventHandler; //you will need this too!
 import javafx.scene.AccessibleRole;
 
 import java.io.File;
+import java.util.Objects;
 
 /**
  * Class AdventureGameView.
@@ -267,16 +268,7 @@ public class AdventureGameView {
         text = text.strip(); //get rid of white space
         stopArticulation(); //if speaking, stop
 
-        if (text.equalsIgnoreCase("LOOK") || text.equalsIgnoreCase("L")) {
-            String roomDesc = this.model.getPlayer().getCurrentRoom().getRoomDescription();
-            String objectString = this.model.getPlayer().getCurrentRoom().getObjectString();
-            String clueString = this.model.getPlayer().getCurrentRoom().getClueString();
-            if (!objectString.isEmpty() && !clueString.isEmpty()) roomDescLabel.setText(roomDesc + "\n\nObjects and clues in this room:\n" + objectString + "\n" + clueString);
-            else if (!objectString.isEmpty()) roomDescLabel.setText(roomDesc + "\n\nObjects in this room:\n" + objectString);
-            else if (!clueString.isEmpty()) roomDescLabel.setText(roomDesc + "\n\nClues in this room:\n" + clueString);
-            // articulateRoomDescription(); //all we want, if we are looking, is to repeat description.
-            return;
-        } else if (text.equalsIgnoreCase("HELP") || text.equalsIgnoreCase("H")) {
+        if (text.equalsIgnoreCase("HELP") || text.equalsIgnoreCase("H")) {
             showInstructions();
             return;
         } else if (text.equalsIgnoreCase("COMMANDS") || text.equalsIgnoreCase("C")) {
@@ -696,7 +688,7 @@ public class AdventureGameView {
     /**
      * This method articulates Room Descriptions
      */
-/*    public void articulateRoomDescription() {
+    public void articulateRoomDescription() {
         String musicFile;
         String adventureName = this.model.getDirectoryName();
         String roomName = this.model.getPlayer().getCurrentRoom().getRoomName();
@@ -711,7 +703,7 @@ public class AdventureGameView {
         mediaPlayer.play();
         mediaPlaying = true;
 
-    }*/
+    }
 
     /**
      * This method stops articulations 
