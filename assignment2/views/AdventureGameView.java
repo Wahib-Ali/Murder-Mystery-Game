@@ -278,7 +278,11 @@ public class AdventureGameView {
         } else if (text.equalsIgnoreCase("COMMANDS") || text.equalsIgnoreCase("C")) {
             showCommands(); //this is new!  We did not have this command in A1
             return;
-        }
+        } else if(text.equalsIgnoreCase("GUESS")){
+        gridPane.requestFocus();
+        EndScreenView endscreen = new EndScreenView(this);
+        return;
+    }
 
         //try to move!
         String output = this.model.interpretAction(text); //process the command!
@@ -627,11 +631,11 @@ public class AdventureGameView {
         else musicFile = "./" + adventureName + "/sounds/" + roomName.toLowerCase() + "-short.mp3" ;
         musicFile = musicFile.replace(" ","-");
 
-        Media sound = new Media(new File(musicFile).toURI().toString());
+        // Media sound = new Media(new File(musicFile).toURI().toString());
 
-        mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.play();
-        mediaPlaying = true;
+        //mediaPlayer = new MediaPlayer(sound);
+        //mediaPlayer.play();
+        //mediaPlaying = true;
 
     }
 
