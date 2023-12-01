@@ -4,7 +4,9 @@ import AdventureModel.AdventureGame;
 import AdventureModel.AdventureObject;
 import AdventureModel.AdventureClue;
 import AdventureModel.Passage;
+import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -24,6 +26,7 @@ import javafx.util.Duration;
 import javafx.event.EventHandler; //you will need this too!
 import javafx.scene.AccessibleRole;
 
+import javax.xml.stream.events.EndElement;
 import java.io.File;
 import java.util.Objects;
 
@@ -170,6 +173,26 @@ public class AdventureGameView {
         textEntry.setSpacing(10);
         textEntry.setAlignment(Pos.CENTER);
         gridPane.add( textEntry, 0, 2, 3, 1 );
+
+        // add timer
+        time timee = new time(10, 0);
+        Label timer = new Label();
+        gridPane.add(timer, 1, 0);
+        timer.setStyle("-fx-text-fill: white;");
+        timer.setFont(new Font("Arial", 30));
+        timer.setText(timee.getCurrentTime());
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1),
+                        e -> {
+                            if(timee.getCurrentTime().equals("0:0")){
+                                gridPane.requestFocus();
+                                EndScreenView endscreen = new EndScreenView(this);
+                            }
+                            timee.oneSecondPassed();
+                            timer.setText(timee.getCurrentTime());
+                        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
 
         // Render everything
         var scene = new Scene( gridPane ,  1000, 800);
