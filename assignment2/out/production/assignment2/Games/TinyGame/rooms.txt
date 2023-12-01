@@ -1,140 +1,84 @@
 1
-<<<<<<< HEAD
-Library
-=======
-mansion_library
->>>>>>> 6dfe5f8056be1cb98eadcaf625a5eaa258db5d5f
-You are in an enormous library with lots of books on shelves. The room has comfy chairs and sofas where people can sit and read. There's a fireplace that keeps the room warm. Some tables have maps and old scrolls on them. The walls have pictures of famous writers. The room is quiet; too quite perhaps.
+Outside building
+You are standing at the end of a road before a small brick building.  A small stream flows out of the building and down a gully to the south.  A road runs up a small hill to the west.
 -----
-OUT         2
-NORTH       2
+WEST       2
+UP         2
+NORTH      3
+IN         3
+SOUTH      4
+DOWN       4
 
 2
-<<<<<<< HEAD
-Hallway
-=======
-mansion_hallway
->>>>>>> 6dfe5f8056be1cb98eadcaf625a5eaa258db5d5f
-You are in a spacious hallway with marbled floors on one side and ornate wood panels on the other. Tapestry-lined walls soften the space, while the white noise hints at a lack of life. There are stairs offscreen leading to the first floor.
+End of road
+You are at the end of a road at the top of a small hill. You can see a small building in the valley to the east.
 -----
-WEST        3
-EAST        4
-NORTH       5
-SOUTH       1
-DOWN        6
+EAST       1
+WEST       3
+DOWN       3
 
 3
-<<<<<<< HEAD
-Son's Bedroom
-=======
-mansion_sons_bedroom
->>>>>>> 6dfe5f8056be1cb98eadcaf625a5eaa258db5d5f
-You are in the Mayor's sons bedroom. Posters decorate the walls, and the textures vary from smooth paper to rough canvas. The floor is carpeted, soft underfoot, and scattered with the occasional crunch of clothes. There's a faint hum of electronics implying his computer is still on.
+Inside building
+You are inside a building, a well house for a large spring. The exit door is to the south.  There is another room to the north, but the door is barred by a shimmering curtain.
 -----
-OUT         2
-EAST        2
+SOUTH      1
+WEST       5
+OUT        6/BIRD
+OUT        1
+NORTH     3
+XYZZY     2/BOOK
+XYZZY     1
+PLUGH     2/BOOK
+PLUGH     1
 
 4
-<<<<<<< HEAD
-Master Bedroom
-=======
-mansion_master_bedroom
->>>>>>> 6dfe5f8056be1cb98eadcaf625a5eaa258db5d5f
-You are in the master bedroom. A plush carpet welcomes each step, contrasting with the smooth wooden floorboards near the windows. The air carries a hint of lavender, subtle and calming. A king-sized bed sits at the room's center, its soft comforter inviting relaxation. A secret passage in the closet leads to the attic.
+Valley beside a stream
+You are in a valley in the forest beside a stream tumbling along a rocky bed.  The stream is flowing to the south.
 -----
-OUT         2
-WEST        2
-UP          7
+NORTH      1
+UP         1
+SOUTH      5
+DOWN       5
+WEST       5
 
 5
-<<<<<<< HEAD
-Bathroom
-=======
-mansion_bathroom
->>>>>>> 6dfe5f8056be1cb98eadcaf625a5eaa258db5d5f
-You are in the bathroom. Cool tiles meet your feet, their smooth surface contrasting with the warmth of the bath mat. The air carries the clean scent of soap and hints of a recently used fragrance. The space is serene, with only the faint echo of your own movements breaking the tranquility.
+Slit in rock
+At your feet all the water of the stream splashes into a two-inch slit in the rock.  To the south, the streambed is bare rock.
 -----
-OUT         2
-SOUTH       2
+NORTH      4
+UP         4
+SOUTH      6
+DOWN       6
+WEST       6
 
 6
-<<<<<<< HEAD
-Living Room
-=======
-mansion_living_room
->>>>>>> 6dfe5f8056be1cb98eadcaf625a5eaa258db5d5f
-You are in the living room. The soft carpet contrasts with polished wooden floors. Sunlight filters in, casting warmth across the space. Familiar scents linger in the air, while the quiet hum of electronics adds a subtle rhythm.
+Curtain1
+You are passing through a curtain!
 -----
-WEST        8
-EAST        9
+FORCED    7/BIRD
+FORCED    9
 
 7
-<<<<<<< HEAD
-Attic
-=======
-mansion_attic
->>>>>>> 6dfe5f8056be1cb98eadcaf625a5eaa258db5d5f
-You are in the attic. Weathered floorboards creak softly underfoot, their texture uneven but familiar. Dust motes dance in the sunlight streaming through a small window. The air holds a distinct scent of aged wood and forgotten memories. Silence reigns, broken only by the occasional scuffles of mice or flies.
+Curtain2
+You are passing through another curtain!
 -----
-DOWN        4
-OUT         4
-FORCED      0
+FORCED    8
 
 8
-<<<<<<< HEAD
-Kitchen
-=======
-mansion_kitchen
->>>>>>> 6dfe5f8056be1cb98eadcaf625a5eaa258db5d5f
-You are in the kitchen. Cool tiles line the floor, smooth underfoot. The air carries traces of freshly cooked meals and hints of spices. Cabinets occasionally creak open, releasing the faint scent of polished wood. A sliding door leads to the backyard.
+Curtain3
+Yet another curtain here!
 -----
-OUT         10
-WEST        10
-EAST        6
+FORCED    10
 
 9
-<<<<<<< HEAD
-Office
-=======
-mansion_office
->>>>>>> 6dfe5f8056be1cb98eadcaf625a5eaa258db5d5f
-You are in the office. A carpeted floor muffles footsteps, contrasting with the smooth surface of the desk. The air holds the faint scent of paper and ink. Silence dominates, and the room exudes a sense of focused productivity.
+Missing Treasures
+You can pass through this curtain only if you're carrying all the treasures.  You don't yet have all of them.
 -----
-OUT         6
-WEST        6
+FORCED     3
 
 10
-<<<<<<< HEAD
-Backyard
-=======
-mansion_backyard
->>>>>>> 6dfe5f8056be1cb98eadcaf625a5eaa258db5d5f
-You are in the backyard. Grass crunches beneath your feet, varying in texture. Birdsong and rustling leaves create a symphony of nature, while the occasional distant sound of a passing car hints at the world beyond. To the west of you, a trap door leads down into the basement.
+Victory
+You have collected all the treasures and are admitted to the Adventurer's Hall of Fame.  Congratulations!
 -----
-IN          8
-DOWN        11
-WEST        11
+FORCED     0
 
-11
-<<<<<<< HEAD
-Basement
-=======
-mansion_basement
->>>>>>> 6dfe5f8056be1cb98eadcaf625a5eaa258db5d5f
-You are in the basement. The wooden floors feel cold and solid. The air is cool and carries a faint hint of mustiness. There is a room directly to your north, and an unfinished room to the south.
------
-UP          10
-OUT         10
-NORTH       12
-FORCED      0
-
-12
-<<<<<<< HEAD
-Billiard Room
-=======
-mansion_billiard_room
->>>>>>> 6dfe5f8056be1cb98eadcaf625a5eaa258db5d5f
-You are in the billiard room. A smooth, felted surface covers the table, its texture distinct under your fingertips. The air carries a faint scent of chalk and leather from cue sticks. A relaxed, focused atmosphere pervades, perfect for a game and conversation.
------
-OUT         11
-SOUTH       11

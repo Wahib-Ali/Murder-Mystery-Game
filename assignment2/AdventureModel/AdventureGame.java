@@ -152,32 +152,24 @@ public class AdventureGame implements Serializable {
             return null;
         } else if(Arrays.asList(this.actionVerbs).contains(inputArray[0])) {
             if(inputArray[0].equals("QUIT")) { return "GAME OVER"; } //time to stop!
-            else if(inputArray[0].equals("INVENTORY") && this.player.getInventory().size() == 0 && this.player.getClueInventory().size() == 0) return "INVENTORY IS EMPTY";
-            else if(inputArray[0].equals("INVENTORY") && this.player.getInventory().size() > 0) return "THESE OBJECTS OR CLUES ARE IN YOUR INVENTORY:\n" + this.player.getInventory().toString() + "\n" + this.player.getClueInventory().toString();
+            else if(inputArray[0].equals("INVENTORY") && this.player.getInventory().size() == 0) return "INVENTORY IS EMPTY";
+            else if(inputArray[0].equals("INVENTORY") && this.player.getInventory().size() > 0) return "THESE OBJECTS ARE IN YOUR INVENTORY:\n" + this.player.getInventory().toString();
             else if(inputArray[0].equals("TAKE") && inputArray.length < 2) return "THE TAKE COMMAND REQUIRES AN OBJECT";
             else if(inputArray[0].equals("DROP") && inputArray.length < 2) return "THE DROP COMMAND REQUIRES AN OBJECT";
             else if(inputArray[0].equals("TAKE") && inputArray.length == 2) {
                 if(this.player.getCurrentRoom().checkIfObjectInRoom(inputArray[1])) {
                     this.player.takeObject(inputArray[1]);
                     return "YOU HAVE TAKEN:\n " + inputArray[1];
-                } else if (this.player.getCurrentRoom().checkIfClueInRoom(inputArray[1])) {
-                    this.player.takeClue(inputArray[1]);
-                    return "YOU HAVE TAKEN:\n " + inputArray[1];
-                }
-                else {
-                    return "THIS OBJECT OR CLUE IS NOT HERE:\n " + inputArray[1];
+                } else {
+                    return "THIS OBJECT IS NOT HERE:\n " + inputArray[1];
                 }
             }
             else if(inputArray[0].equals("DROP") && inputArray.length == 2) {
                 if(this.player.checkIfObjectInInventory(inputArray[1])) {
                     this.player.dropObject(inputArray[1]);
                     return "YOU HAVE DROPPED:\n " + inputArray[1];
-                } else if (this.player.checkIfClueInInventory(inputArray[1])) {
-                    this.player.dropClue(inputArray[1]);
-                    return "YOU HAVE DROPPED:\n " + inputArray[1];
-                }
-                else {
-                    return "THIS OBJECT OR CLUE IS NOT IN YOUR INVENTORY:\n " + inputArray[1];
+                } else {
+                    return "THIS OBJECT IS NOT IN YOUR INVENTORY:\n " + inputArray[1];
                 }
             }
         }
