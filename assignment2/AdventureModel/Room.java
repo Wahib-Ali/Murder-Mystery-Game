@@ -36,6 +36,8 @@ public class Room implements Serializable {
      */
     public ArrayList<AdventureObject> objectsInRoom = new ArrayList<AdventureObject>();
 
+    public ArrayList<AdventureClue> cluesInRoom = new ArrayList<AdventureClue>();
+
     /**
      * A boolean to store if the room has been visited or not
      */
@@ -71,6 +73,26 @@ public class Room implements Serializable {
 
         for (int i = 0; i < this.objectsInRoom.size(); i++){
             lst.add(this.objectsInRoom.get(i).getDescription());
+        }
+
+        for (int i = 0; i < lst.size(); i++){
+            if (i == lst.size() - 1){
+                final_str += lst.get(i);
+            } else{
+                final_str += lst.get(i) + ",";
+            }
+        }
+
+        return final_str;
+    }
+
+    public String getClueString() {
+        // Create a list of all the objects in the room and then move everything to a string
+        List<String> lst = new ArrayList<>();
+        String final_str = "";
+
+        for (int i = 0; i < this.cluesInRoom.size(); i++){
+            lst.add(this.cluesInRoom.get(i).getDescription());
         }
 
         for (int i = 0; i < lst.size(); i++){
@@ -120,6 +142,10 @@ public class Room implements Serializable {
         this.objectsInRoom.add(object);
     }
 
+    public void addGameClue(AdventureClue clue){
+        this.cluesInRoom.add(clue);
+    }
+
     /**
      * This method removes a game object from the room.
      *
@@ -128,6 +154,11 @@ public class Room implements Serializable {
     public void removeGameObject(AdventureObject object){
         this.objectsInRoom.remove(object);
     }
+
+    public void removeGameClue(AdventureClue clue){
+        this.cluesInRoom.remove(clue);
+    }
+
 
     /**
      * This method checks if an object is in the room.
@@ -138,6 +169,13 @@ public class Room implements Serializable {
     public boolean checkIfObjectInRoom(String objectName){
         for(int i = 0; i<objectsInRoom.size();i++){
             if(this.objectsInRoom.get(i).getName().equals(objectName)) return true;
+        }
+        return false;
+    }
+
+    public boolean checkIfClueInRoom(String clueName){
+        for(int i = 0; i<cluesInRoom.size();i++){
+            if(this.cluesInRoom.get(i).getName().equals(clueName)) return true;
         }
         return false;
     }
@@ -158,6 +196,13 @@ public class Room implements Serializable {
     public AdventureObject getObject(String objectName){
         for(int i = 0; i<objectsInRoom.size();i++){
             if(this.objectsInRoom.get(i).getName().equals(objectName)) return this.objectsInRoom.get(i);
+        }
+        return null;
+    }
+
+    public AdventureClue getClue (String clueName){
+        for(int i = 0; i<cluesInRoom.size();i++){
+            if(this.cluesInRoom.get(i).getName().equals(clueName)) return this.cluesInRoom.get(i);
         }
         return null;
     }

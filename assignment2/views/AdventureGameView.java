@@ -2,6 +2,7 @@ package views;
 
 import AdventureModel.AdventureGame;
 import AdventureModel.AdventureObject;
+import AdventureModel.AdventureClue;
 import AdventureModel.Passage;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -24,6 +25,7 @@ import javafx.event.EventHandler; //you will need this too!
 import javafx.scene.AccessibleRole;
 
 import java.io.File;
+import java.util.Objects;
 
 /**
  * Class AdventureGameView.
@@ -70,7 +72,7 @@ public class AdventureGameView {
     public void intiUI() {
 
         // setting up the stage
-        this.stage.setTitle("dhill591's Adventure Game"); //Replace <YOUR UTORID> with your UtorID
+        this.stage.setTitle("Group 69's New Adventure Game");
 
         //Inventory + Room items
         objectsInInventory.setSpacing(10);
@@ -266,19 +268,17 @@ public class AdventureGameView {
         text = text.strip(); //get rid of white space
         stopArticulation(); //if speaking, stop
 
-        if (text.equalsIgnoreCase("LOOK") || text.equalsIgnoreCase("L")) {
-            String roomDesc = this.model.getPlayer().getCurrentRoom().getRoomDescription();
-            String objectString = this.model.getPlayer().getCurrentRoom().getObjectString();
-            if (!objectString.isEmpty()) roomDescLabel.setText(roomDesc + "\n\nObjects in this room:\n" + objectString);
-            articulateRoomDescription(); //all we want, if we are looking, is to repeat description.
-            return;
-        } else if (text.equalsIgnoreCase("HELP") || text.equalsIgnoreCase("H")) {
+        if (text.equalsIgnoreCase("HELP") || text.equalsIgnoreCase("H")) {
             showInstructions();
             return;
         } else if (text.equalsIgnoreCase("COMMANDS") || text.equalsIgnoreCase("C")) {
             showCommands(); //this is new!  We did not have this command in A1
             return;
-        }
+        } else if(text.equalsIgnoreCase("GUESS")){
+        gridPane.requestFocus();
+        EndScreenView endscreen = new EndScreenView(this);
+        return;
+    }
 
         //try to move!
         String output = this.model.interpretAction(text); //process the command!
@@ -372,7 +372,7 @@ public class AdventureGameView {
         stage.sizeToScene();
 
         //finally, articulate the description
-        if (textToDisplay == null || textToDisplay.isBlank()) articulateRoomDescription();
+        // if (textToDisplay == null || textToDisplay.isBlank()) articulateRoomDescription();
     }
 
     /**
@@ -387,7 +387,10 @@ public class AdventureGameView {
         if (textToDisplay == null || textToDisplay.isBlank()) {
             String roomDesc = this.model.getPlayer().getCurrentRoom().getRoomDescription() + "\n";
             String objectString = this.model.getPlayer().getCurrentRoom().getObjectString();
-            if (objectString != null && !objectString.isEmpty()) roomDescLabel.setText(roomDesc + "\n\nObjects in this room:\n" + objectString);
+            String clueString = this.model.getPlayer().getCurrentRoom().getClueString();
+            if (objectString != null && !objectString.isEmpty() && clueString != null && !clueString.isEmpty()) roomDescLabel.setText(roomDesc + "\n\nObjects and clues in this room:\n" + objectString + "\n" + clueString);
+            else if (objectString != null && !objectString.isEmpty()) roomDescLabel.setText(roomDesc + "\n\nObjects in this room:\n" + objectString);
+            else if (clueString != null && !clueString.isEmpty()) roomDescLabel.setText(roomDesc + "\n\nClues in this room:\n" + clueString);
             else roomDescLabel.setText(roomDesc);
         } else roomDescLabel.setText(textToDisplay);
         roomDescLabel.setStyle("-fx-text-fill: white;");
@@ -471,6 +474,41 @@ public class AdventureGameView {
             objectsInRoom.getChildren().add(itemButton);
         }
 
+        // implement the same thing above but for the clues but still append into the objectsInInventory and InRoom VBox
+        for (AdventureClue item : this.model.getPlayer().getCurrentRoom().cluesInRoom) {
+
+            Button itemButton = new Button();
+            itemButton.setAccessibleRole(AccessibleRole.BUTTON);
+            itemButton.setAccessibleRoleDescription("Room Clue.");
+            itemButton.setAccessibleText(item.getDescription());
+            itemButton.setOnAction(e -> {
+                this.model.getPlayer().takeClue(item.getName());
+                updateItems();
+                objectsInRoom.getChildren().remove(itemButton);
+            });
+
+            // Now load the image
+            String imagePath = model.getDirectoryName() + "/clueImages/" + item.getName() + ".jpg";
+            Image itemImage = new Image(new File(imagePath).toURI().toString());
+            ImageView imageView = new ImageView(itemImage);
+            imageView.setFitWidth(100);
+            imageView.setPreserveRatio(true);
+
+            // Add the name of the object under its photo
+            Label imageLabel = new Label(item.getName());
+            imageLabel.setStyle("-fx-text-fill: black;");
+            imageLabel.setWrapText(true);
+            imageLabel.setPrefSize(100,10);
+            VBox imageBox = new VBox();
+            imageBox.getChildren().addAll(imageView, imageLabel);
+            imageBox.setAlignment(Pos.TOP_CENTER);
+
+            itemButton.setGraphic(imageBox);
+
+            objectsInRoom.getChildren().add(itemButton);
+        }
+
+
         objectsInInventory.getChildren().clear();
 
         //write some code here to add images of objects in a player's inventory room to the objectsInInventory Vbox
@@ -508,6 +546,42 @@ public class AdventureGameView {
             objectsInInventory.getChildren().add(itemButton);
 
         }
+
+        // Do the same as above but for clues
+        for (AdventureClue item : this.model.getPlayer().clueInventory) {
+
+            Button itemButton = new Button();
+            itemButton.setAccessibleRole(AccessibleRole.BUTTON);
+            itemButton.setAccessibleRoleDescription("Clue Item.");
+            itemButton.setAccessibleText(item.getDescription());
+            itemButton.setOnAction(e -> {
+                this.model.getPlayer().dropClue(item.getName());
+                updateItems();
+                objectsInInventory.getChildren().remove(itemButton);
+            });
+
+            // Now load the image
+            String imagePath = model.getDirectoryName() + "/clueImages/" + item.getName() + ".jpg";
+            Image itemImage = new Image(new File(imagePath).toURI().toString());
+            ImageView imageView = new ImageView(itemImage);
+            imageView.setFitWidth(100);
+            imageView.setPreserveRatio(true);
+
+            // Add the name of the object under its photo
+            Label imageLabel = new Label(item.getName());
+            imageLabel.setStyle("-fx-text-fill: black;");
+            imageLabel.setWrapText(true);
+            imageLabel.setPrefSize(100,10);
+            VBox imageBox = new VBox();
+            imageBox.getChildren().addAll(imageView, imageLabel);
+            imageBox.setAlignment(Pos.TOP_CENTER);
+
+            itemButton.setGraphic(imageBox);
+
+            objectsInInventory.getChildren().add(itemButton);
+
+        }
+
 
         //the path to the image of any is as follows:
         //this.model.getDirectoryName() + "/objectImages/" + objectName + ".jpg";
@@ -627,11 +701,11 @@ public class AdventureGameView {
         else musicFile = "./" + adventureName + "/sounds/" + roomName.toLowerCase() + "-short.mp3" ;
         musicFile = musicFile.replace(" ","-");
 
-        Media sound = new Media(new File(musicFile).toURI().toString());
+        // Media sound = new Media(new File(musicFile).toURI().toString());
 
-        mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.play();
-        mediaPlaying = true;
+        //mediaPlayer = new MediaPlayer(sound);
+        //mediaPlayer.play();
+        //mediaPlaying = true;
 
     }
 
