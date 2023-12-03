@@ -79,9 +79,36 @@ public class AdventureGameView {
     }
 
     public void colourChooser() {
-        Label title  = new Label("Would you like to play the game in normal colouring or inverted colouring?");
+
+        // GridPane, anyone?
+        gridPane.setPadding(new Insets(20));
+        gridPane.setBackground(new Background(new BackgroundFill(
+                Color.valueOf("#FFFFFF"),
+                new CornerRadii(0),
+                new Insets(0)
+        )));
+
+        //Three columns, three rows for the GridPane
+        ColumnConstraints column1 = new ColumnConstraints(150);
+        ColumnConstraints column2 = new ColumnConstraints(650);
+        ColumnConstraints column3 = new ColumnConstraints(150);
+        column3.setHgrow(Priority.SOMETIMES ); //let some columns grow to take any extra space
+        column1.setHgrow(Priority.SOMETIMES );
+
+        // Row constraints
+        RowConstraints row1 = new RowConstraints();
+        RowConstraints row2 = new RowConstraints( 550 );
+        RowConstraints row3 = new RowConstraints();
+        row1.setVgrow( Priority.SOMETIMES );
+        row3.setVgrow( Priority.SOMETIMES );
+
+        gridPane.getColumnConstraints().addAll( column1 , column2 , column1 );
+        gridPane.getRowConstraints().addAll( row1 , row2 , row1 );
+
+
+        Label title  = new Label("Would you like to play the game in\nnormal colouring or inverted colouring?");
         title.setAlignment(Pos.CENTER);
-        title.setStyle("-fx-text-fill: white;");
+        title.setStyle("-fx-text-fill: black;");
         title.setFont(new Font("Arial", 30));
 
         // Buttons
@@ -92,7 +119,7 @@ public class AdventureGameView {
         addNormalColourEvent();
 
         // Add Colour Inverter Button
-        colourInverterButton = new Button("Invert Colours");
+        colourInverterButton = new Button("Inverted Colours");
         colourInverterButton.setId("Inverted");
         customizeButton(colourInverterButton, 140, 50);
         makeButtonAccessible(colourInverterButton, "Colour Inverter Button", "This button inverts the colours of the game.", "This button inverts all the colours of the game. Essentially, all light colours become dark and dark colours become lighter tones.");
@@ -103,7 +130,8 @@ public class AdventureGameView {
         topButtons2.setSpacing(10);
         topButtons2.setAlignment(Pos.CENTER);
 
-        gridPane.add(topButtons2, 1, 0, 1, 1 );  // Add buttons
+        gridPane.add(title, 1, 0, 1 ,1);
+        gridPane.add(topButtons2, 1, 1, 1, 1 );  // Add buttons
 
         // Render everything
         var scene1 = new Scene( gridPane ,  1000, 800);
@@ -394,14 +422,19 @@ public class AdventureGameView {
         String roomCommands = "You can move in these directions:" + "\n"  + "\n" + this.model.player.getCurrentRoom().getCommands();
         Label roomCommandsLabel = new Label();
         roomCommandsLabel.setText(roomCommands);
-        roomCommandsLabel.setTextFill(Color.color(1,1,1));
+
+        if (colourInvert == 1){
+            roomCommandsLabel.setTextFill(Color.color(0,0,0));
+        } else {
+            roomCommandsLabel.setTextFill(Color.color(1,1,1));
+        }
 
         // Remove the current VBox from the GUI
-        VBox oldRoomPane = new VBox(roomImageView,roomDescLabel);
+        VBox oldRoomPane = new VBox(roomImageView, roomDescLabel);
         gridPane.getChildren().remove(oldRoomPane);
 
         // Create a new VBox including the image and commands and then add to the GUI
-        VBox roomPane = new VBox(roomImageView,roomCommandsLabel);
+        VBox roomPane = new VBox(roomImageView, roomCommandsLabel);
         roomPane.setPadding(new Insets(10));
         roomPane.setAlignment(Pos.TOP_CENTER);
 
