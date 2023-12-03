@@ -32,6 +32,7 @@ public class AdventureLoader {
         parseObjects();
         parseClues();
         parseSynonyms();
+        parseSuspects();
         this.game.setHelpText(parseOtherFile("help"));
     }
 
@@ -149,6 +150,53 @@ public class AdventureLoader {
 
     }
 
+    public void parseSuspects() throws IOException {
+
+        String suspectsFileName = this.adventureName + "/suspects.txt";
+        BufferedReader buff = new BufferedReader(new FileReader(suspectsFileName));
+        String line = buff.readLine();
+
+        int count = 1;
+
+        String name;
+        boolean isMurderer;
+        int age;
+        String relation;
+        String description;
+        String background;
+        String motive;
+
+        while(line != null){
+
+            name = line;
+            line = buff.readLine();
+
+            isMurderer = Boolean.parseBoolean(line);
+            line = buff.readLine();
+
+            age = Integer.parseInt(line);
+            line = buff.readLine();
+
+            relation = line;
+            line = buff.readLine();
+
+            description = line;
+            line = buff.readLine();
+
+            background = line;
+            line = buff.readLine();
+
+            motive = line;
+            line = buff.readLine();
+
+            Suspect suspect = new Suspect(name, isMurderer, age, relation, description, background, motive);
+            this.game.getSuspects().put(count, suspect);
+
+            line = buff.readLine();
+            count += 1;
+        }
+    }
+
     /**
      * Parse Files other than Rooms, Objects and Synonyms
      *
@@ -165,7 +213,4 @@ public class AdventureLoader {
         }
         return text;
     }
-
-
-
 }
