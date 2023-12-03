@@ -49,8 +49,10 @@ public class AdventureGameView {
     ImageView roomImageView; //to hold room image
     TextField inputTextField; //for user input
 
-    private MediaPlayer mediaPlayer; //to play audio
-    private boolean mediaPlaying; //to know if the audio is playing
+    boolean timeFinished; //TODO: FIND A WAY tO DETERMINE WHEN A PLAYER IS DONE PLAYING
+
+//    private MediaPlayer mediaPlayer; //to play audio
+//    private boolean mediaPlaying; //to know if the audio is playing
     private VBox instructionBox; //to showcase instructions on screen
 
     /**
@@ -70,6 +72,7 @@ public class AdventureGameView {
     public void intiUI() {
 
         // setting up the stage
+        //TODO: CHANGE TITLE
         this.stage.setTitle("dhill591's Adventure Game"); //Replace <YOUR UTORID> with your UtorID
 
         //Inventory + Room items
@@ -176,6 +179,8 @@ public class AdventureGameView {
         this.stage.setResizable(false);
         this.stage.show();
 
+
+
     }
 
 
@@ -197,6 +202,8 @@ public class AdventureGameView {
         inputButton.setAccessibleHelp(longString);
         inputButton.setFocusTraversable(true);
     }
+
+
 
     /**
      * customizeButton
@@ -265,6 +272,19 @@ public class AdventureGameView {
 
         text = text.strip(); //get rid of white space
         stopArticulation(); //if speaking, stop
+
+        if (text.equals("TEST")) {
+            SuspectView test = new SuspectView(this);
+            roomDescLabel.setText("It was accessed");
+            return;
+        }
+
+
+        //TODO: ADD THIS MAYBE?
+//        if (timeFinished) {
+//            showSuspects();
+//            return;
+//        }
 
         if (text.equalsIgnoreCase("LOOK") || text.equalsIgnoreCase("L")) {
             String roomDesc = this.model.getPlayer().getCurrentRoom().getRoomDescription();
@@ -581,6 +601,20 @@ public class AdventureGameView {
         }
     }
 
+    public void showSuspects() {
+
+        objectsInRoom.getChildren().clear();
+
+        Button leftArrow = new Button();
+        Button rightArrow = new Button();
+
+        leftArrow.setText("<");
+        rightArrow.setText(">");
+
+        makeButtonAccessible(leftArrow, "", "Arrow pointing left", "Navigate to the previous suspect using this button");
+
+    }
+
     /**
      * This method handles the event related to the
      * help button.
@@ -619,19 +653,19 @@ public class AdventureGameView {
      * This method articulates Room Descriptions
      */
     public void articulateRoomDescription() {
-        String musicFile;
-        String adventureName = this.model.getDirectoryName();
-        String roomName = this.model.getPlayer().getCurrentRoom().getRoomName();
-
-        if (!this.model.getPlayer().getCurrentRoom().getVisited()) musicFile = "./" + adventureName + "/sounds/" + roomName.toLowerCase() + "-long.mp3" ;
-        else musicFile = "./" + adventureName + "/sounds/" + roomName.toLowerCase() + "-short.mp3" ;
-        musicFile = musicFile.replace(" ","-");
-
-        Media sound = new Media(new File(musicFile).toURI().toString());
-
-        mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.play();
-        mediaPlaying = true;
+//        String musicFile;
+//        String adventureName = this.model.getDirectoryName();
+//        String roomName = this.model.getPlayer().getCurrentRoom().getRoomName();
+//
+//        if (!this.model.getPlayer().getCurrentRoom().getVisited()) musicFile = "./" + adventureName + "/sounds/" + roomName.toLowerCase() + "-long.mp3" ;
+//        else musicFile = "./" + adventureName + "/sounds/" + roomName.toLowerCase() + "-short.mp3" ;
+//        musicFile = musicFile.replace(" ","-");
+//
+//        Media sound = new Media(new File(musicFile).toURI().toString());
+//
+//        mediaPlayer = new MediaPlayer(sound);
+//        mediaPlayer.play();
+//        mediaPlaying = true;
 
     }
 
@@ -640,9 +674,9 @@ public class AdventureGameView {
      * (useful when transitioning to a new room or loading a new game)
      */
     public void stopArticulation() {
-        if (mediaPlaying) {
-            mediaPlayer.stop(); //shush!
-            mediaPlaying = false;
-        }
+//        if (mediaPlaying) {
+//            mediaPlayer.stop(); //shush!
+//            mediaPlaying = false;
+//        }
     }
 }

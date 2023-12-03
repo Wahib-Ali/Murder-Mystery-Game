@@ -50,7 +50,7 @@ You are in the attic. Weathered floorboards creak softly underfoot, their textur
 -----
 DOWN        4
 OUT         4
-FORCED      ?
+FORCED      0
 
 8
 Kitchen
@@ -82,7 +82,7 @@ You are in the basement. The wooden floors feel cold and solid. The air is cool 
 UP          10
 OUT         10
 NORTH       12
-FORCED      ?
+FORCED      0
 
 12
 Billiard Room
