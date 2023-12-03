@@ -260,7 +260,7 @@ public class AdventureGameView {
                         e -> {
                             if(timee.getCurrentTime().equals("0:0")){
                                 gridPane.requestFocus();
-                                EndScreenView endscreen = new EndScreenView(this);
+                                EndScreenView endscreen = new EndScreenView(this, colourInvert);
                             }
                             timee.oneSecondPassed();
                             timer.setText(timee.getCurrentTime());
@@ -370,10 +370,10 @@ public class AdventureGameView {
             showCommands(); //this is new!  We did not have this command in A1
             return;
         } else if(text.equalsIgnoreCase("GUESS")){
-        gridPane.requestFocus();
-        EndScreenView endscreen = new EndScreenView(this);
-        return;
-    }
+            gridPane.requestFocus();
+            EndScreenView endscreen = new EndScreenView(this, colourInvert);
+            return;
+        }
 
         //try to move!
         String output = this.model.interpretAction(text); //process the command!
@@ -932,7 +932,7 @@ public class AdventureGameView {
                         e -> {
                             if(timee.getCurrentTime().equals("0:0")){
                                 gridPane.requestFocus();
-                                EndScreenView endscreen = new EndScreenView(this);
+                                EndScreenView endscreen = new EndScreenView(this, colourInvert);
                             }
                             timee.oneSecondPassed();
                             timer.setText(timee.getCurrentTime());
