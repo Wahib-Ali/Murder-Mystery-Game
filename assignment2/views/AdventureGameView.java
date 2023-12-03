@@ -47,6 +47,7 @@ public class AdventureGameView {
     AdventureGame model; //model of the game
     Stage stage; //stage on which all is rendered
     Button saveButton, loadButton, helpButton; //buttons
+    Button viewSuspects;
     Boolean helpToggle = false; //is help on display?
 
     GridPane gridPane = new GridPane(); //to hold images and buttons
@@ -126,12 +127,18 @@ public class AdventureGameView {
 
         helpButton = new Button("Instructions");
         helpButton.setId("Instructions");
-        customizeButton(helpButton, 200, 50);
+        customizeButton(helpButton, 140, 50);
         makeButtonAccessible(helpButton, "Help Button", "This button gives game instructions.", "This button gives instructions on the game controls. Click it to learn how to play.");
         addInstructionEvent();
 
+        viewSuspects = new Button("Choose Suspect");
+        viewSuspects.setId("Choose Suspect");
+        customizeButton(viewSuspects, 140, 50);
+        makeButtonAccessible(viewSuspects, "View Suspects Button", "This button allows you to navigate through the potential suspects.", "This button allows you to navigate through the potential suspects. You can also choose a suspect if you feel confident in your choice.");
+        addViewSuspectsEvent();
+
         HBox topButtons = new HBox();
-        topButtons.getChildren().addAll(saveButton, helpButton, loadButton);
+        topButtons.getChildren().addAll(saveButton, helpButton, viewSuspects, loadButton);
         topButtons.setSpacing(10);
         topButtons.setAlignment(Pos.CENTER);
 
@@ -307,6 +314,10 @@ public class AdventureGameView {
 
         text = text.strip(); //get rid of white space
         stopArticulation(); //if speaking, stop
+
+        if (text.equalsIgnoreCase("CHOOSE")) {
+            SuspectView suspectView = new SuspectView(this);
+        }
 
         if (text.equalsIgnoreCase("HELP") || text.equalsIgnoreCase("H")) {
             showInstructions();
@@ -727,6 +738,14 @@ public class AdventureGameView {
             LoadView loadView = new LoadView(this);
         });
     }
+
+    public void addViewSuspectsEvent() {
+        viewSuspects.setOnAction(e -> {
+            gridPane.requestFocus();
+            SuspectView suspectView = new SuspectView(this);
+        });
+    }
+
 
 
     /**

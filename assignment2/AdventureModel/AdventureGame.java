@@ -14,6 +14,8 @@ public class AdventureGame implements Serializable {
     private final String[] actionVerbs = {"QUIT","INVENTORY","TAKE","DROP"}; //List of action verbs (other than motions) that exist in all games. Motion vary depending on the room and game.
     public Player player; //The Player of the game.
 
+    private HashMap<Integer, Suspect> suspects = new HashMap<>();
+
     /**
      * Adventure Game Constructor
      * __________________________
@@ -224,6 +226,8 @@ public class AdventureGame implements Serializable {
     public HashMap<String, String> getSynonyms() {
         return this.synonyms;
     }
+
+    public HashMap<Integer, Suspect> getSuspects() {return this.suspects;}
 
     /**
      * setHelpText
