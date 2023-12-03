@@ -10,8 +10,11 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.Blend;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -37,15 +40,17 @@ import java.util.Objects;
  * You are asked to demo your visualization via a Zoom
  * recording. Place a link to your recording below.
  *
- * ZOOM LINK: https://drive.google.com/file/d/15rqSZpYpOd5PUS0MR_xkQ6Zvjd8pcTNK/view?usp=sharing
+ * ZOOM LINK:
  * PASSWORD: There is no password required to access
  */
 public class AdventureGameView {
 
     AdventureGame model; //model of the game
     Stage stage; //stage on which all is rendered
-    Button saveButton, loadButton, helpButton; //buttons
+    Button saveButton, loadButton, helpButton, colourInverterButton, normalColourButton; //buttons
     Boolean helpToggle = false; //is help on display?
+
+    int colourInvert = 0; //used to track colour inversion
 
     GridPane gridPane = new GridPane(); //to hold images and buttons
     Label roomDescLabel = new Label(); //to hold room description and/or instructions
@@ -66,16 +71,57 @@ public class AdventureGameView {
     public AdventureGameView(AdventureGame model, Stage stage) {
         this.model = model;
         this.stage = stage;
-        intiUI();
+
+        //Create a JavaFX thing here that lets you choose normal or inverted colour
+
+        colourChooser();
+        //intiUI();
+    }
+
+    public void colourChooser() {
+        Label title  = new Label("Would you like to play the game in normal colouring or inverted colouring?");
+        title.setAlignment(Pos.CENTER);
+        title.setStyle("-fx-text-fill: white;");
+        title.setFont(new Font("Arial", 30));
+
+        // Buttons
+        normalColourButton = new Button("Normal Colours");
+        normalColourButton.setId("Normal");
+        customizeButton(normalColourButton, 140, 50);
+        makeButtonAccessible(normalColourButton, "Normal Colours", "This button selects the normal colours.", "This button selects the normal colours.");
+        addNormalColourEvent();
+
+        // Add Colour Inverter Button
+        colourInverterButton = new Button("Invert Colours");
+        colourInverterButton.setId("Inverted");
+        customizeButton(colourInverterButton, 140, 50);
+        makeButtonAccessible(colourInverterButton, "Colour Inverter Button", "This button inverts the colours of the game.", "This button inverts all the colours of the game. Essentially, all light colours become dark and dark colours become lighter tones.");
+        addInvertColourEvent();
+
+        HBox topButtons2 = new HBox();
+        topButtons2.getChildren().addAll(normalColourButton, colourInverterButton);
+        topButtons2.setSpacing(10);
+        topButtons2.setAlignment(Pos.CENTER);
+
+        gridPane.add(topButtons2, 1, 0, 1, 1 );  // Add buttons
+
+        // Render everything
+        var scene1 = new Scene( gridPane ,  1000, 800);
+        scene1.setFill(Color.BLACK);
+        this.stage.setScene(scene1);
+        this.stage.setResizable(false);
+        this.stage.show();
+
     }
 
     /**
      * Initialize the UI
      */
     public void intiUI() {
+        gridPane.getChildren().clear();
 
         // setting up the stage
-        this.stage.setTitle("Group 69's New Adventure Game");
+        this.stage.setTitle("Group 69's Adventure Game");
 
         //Inventory + Room items
         objectsInInventory.setSpacing(10);
@@ -105,7 +151,7 @@ public class AdventureGameView {
         row1.setVgrow( Priority.SOMETIMES );
         row3.setVgrow( Priority.SOMETIMES );
 
-        gridPane.getColumnConstraints().addAll( column1 , column2 , column1 );
+        gridPane.getColumnConstraints().addAll( column1 , column2 , column1);
         gridPane.getRowConstraints().addAll( row1 , row2 , row1 );
 
         // Buttons
@@ -193,14 +239,6 @@ public class AdventureGameView {
                         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-
-        // Render everything
-        var scene = new Scene( gridPane ,  1000, 800);
-        scene.setFill(Color.BLACK);
-        this.stage.setScene(scene);
-        this.stage.setResizable(false);
-        this.stage.show();
-
     }
 
 
@@ -235,6 +273,12 @@ public class AdventureGameView {
         inputButton.setPrefSize(w, h);
         inputButton.setFont(new Font("Arial", 16));
         inputButton.setStyle("-fx-background-color: #17871b; -fx-text-fill: white;");
+    }
+
+    private void customizeButton1(Button inputButton, int w, int h) {
+        inputButton.setPrefSize(w, h);
+        inputButton.setFont(new Font("Arial", 16));
+        inputButton.setStyle("-fx-background-color: #e878e4; -fx-text-fill: black;");
     }
 
     /**
@@ -360,7 +404,12 @@ public class AdventureGameView {
         VBox roomPane = new VBox(roomImageView,roomCommandsLabel);
         roomPane.setPadding(new Insets(10));
         roomPane.setAlignment(Pos.TOP_CENTER);
-        roomPane.setStyle("-fx-background-color: #000000;");
+
+        if (colourInvert == 1){
+            roomPane.setStyle("-fx-background-color: #FFFFFF;");
+        } else {
+            roomPane.setStyle("-fx-background-color: #000000;");
+        }
 
         gridPane.add(roomPane, 1, 1);
     }
@@ -389,7 +438,12 @@ public class AdventureGameView {
         VBox roomPane = new VBox(roomImageView,roomDescLabel);
         roomPane.setPadding(new Insets(10));
         roomPane.setAlignment(Pos.TOP_CENTER);
-        roomPane.setStyle("-fx-background-color: #000000;");
+
+        if (colourInvert == 1) {
+            roomPane.setStyle("-fx-background-color: #FFFFFF;");
+        } else {
+            roomPane.setStyle("-fx-background-color: #000000;");
+        }
 
         gridPane.add(roomPane, 1, 1);
         stage.sizeToScene();
@@ -462,6 +516,11 @@ public class AdventureGameView {
 
         // Empty the two VBOX inventory's since they're going to be added back in the for loops
         objectsInRoom.getChildren().clear();
+
+        if (colourInvert == 1) {
+            objectsInRoom.setStyle("-fx-background-color: white");
+            objectsInInventory.setStyle("-fx-background-color: white");
+        }
 
         //write some code here to add images of objects in a given room to the objectsInRoom Vbox
         for (AdventureObject item : this.model.getPlayer().getCurrentRoom().objectsInRoom) {
@@ -611,13 +670,23 @@ public class AdventureGameView {
 
         ScrollPane scO = new ScrollPane(objectsInRoom);
         scO.setPadding(new Insets(10));
-        scO.setStyle("-fx-background: #000000; -fx-background-color:transparent;");
+
+        if (colourInvert == 1) {
+            scO.setStyle("-fx-background: #FFFFFF; -fx-background-color:transparent;");
+        } else {
+            scO.setStyle("-fx-background: #000000; -fx-background-color:transparent;");
+        }
+
         scO.setFitToWidth(true);
         gridPane.add(scO,0,1);
-
         ScrollPane scI = new ScrollPane(objectsInInventory);
         scI.setFitToWidth(true);
-        scI.setStyle("-fx-background: #000000; -fx-background-color:transparent;");
+
+        if (colourInvert == 1) {
+            scI.setStyle("-fx-background: #FFFFFF; -fx-background-color:transparent;");
+        } else {
+            scI.setStyle("-fx-background: #000000; -fx-background-color:transparent;");
+        }
         gridPane.add(scI,2,1);
     }
 
@@ -644,7 +713,12 @@ public class AdventureGameView {
             VBox roomPane = new VBox(roomImageView,roomDescLabel);
             roomPane.setPadding(new Insets(10));
             roomPane.setAlignment(Pos.TOP_CENTER);
-            roomPane.setStyle("-fx-background-color: #000000;");
+
+            if (colourInvert == 1) {
+                roomPane.setStyle("-fx-background-color: #FFFFFF;");
+            } else {
+                roomPane.setStyle("-fx-background-color: #000000;");
+            }
 
             // Since it was true, it means there was a VBOX there
             // Remove whatever was in 1,1
@@ -697,6 +771,147 @@ public class AdventureGameView {
         saveButton.setOnAction(e -> {
             gridPane.requestFocus();
             SaveView saveView = new SaveView(this);
+        });
+    }
+
+    public void addInvertColourEvent() {
+        colourInverterButton.setOnAction(e -> {
+            gridPane.requestFocus();
+            intiUI2();
+        });
+    }
+
+    public void intiUI2() {
+        gridPane.getChildren().clear();
+        colourInvert = 1;
+
+        gridPane.setStyle("-fx-background-color: white");
+
+        // setting up the stage
+        this.stage.setTitle("Group 69's Adventure Game");
+
+        //Inventory + Room items
+        objectsInInventory.setSpacing(10);
+        objectsInInventory.setAlignment(Pos.TOP_CENTER);
+        objectsInRoom.setSpacing(10);
+        objectsInRoom.setAlignment(Pos.TOP_CENTER);
+
+        // GridPane, anyone?
+        gridPane.setPadding(new Insets(20));
+        gridPane.setBackground(new Background(new BackgroundFill(
+                Color.valueOf("#FFFFFF"),
+                new CornerRadii(0),
+                new Insets(0)
+        )));
+
+        //Three columns, three rows for the GridPane
+        ColumnConstraints column1 = new ColumnConstraints(150);
+        ColumnConstraints column2 = new ColumnConstraints(650);
+        ColumnConstraints column3 = new ColumnConstraints(150);
+        column3.setHgrow( Priority.SOMETIMES ); //let some columns grow to take any extra space
+        column1.setHgrow( Priority.SOMETIMES );
+
+        // Row constraints
+        RowConstraints row1 = new RowConstraints();
+        RowConstraints row2 = new RowConstraints( 550 );
+        RowConstraints row3 = new RowConstraints();
+        row1.setVgrow( Priority.SOMETIMES );
+        row3.setVgrow( Priority.SOMETIMES );
+
+        gridPane.getColumnConstraints().addAll( column1 , column2 , column1);
+        gridPane.getRowConstraints().addAll( row1 , row2 , row1 );
+
+        // Buttons
+        saveButton = new Button("Save");
+        saveButton.setId("Save");
+        customizeButton1(saveButton, 100, 50);
+        makeButtonAccessible(saveButton, "Save Button", "This button saves the game.", "This button saves the game. Click it in order to save your current progress, so you can play more later.");
+        addSaveEvent();
+
+        loadButton = new Button("Load");
+        loadButton.setId("Load");
+        customizeButton1(loadButton, 100, 50);
+        makeButtonAccessible(loadButton, "Load Button", "This button loads a game from a file.", "This button loads the game from a file. Click it in order to load a game that you saved at a prior date.");
+        addLoadEvent();
+
+        helpButton = new Button("Instructions");
+        helpButton.setId("Instructions");
+        customizeButton1(helpButton, 200, 50);
+        makeButtonAccessible(helpButton, "Help Button", "This button gives game instructions.", "This button gives instructions on the game controls. Click it to learn how to play.");
+        addInstructionEvent();
+
+        HBox topButtons = new HBox();
+        topButtons.getChildren().addAll(saveButton, helpButton, loadButton);
+        topButtons.setSpacing(10);
+        topButtons.setAlignment(Pos.CENTER);
+
+        inputTextField = new TextField();
+        inputTextField.setFont(new Font("Arial", 16));
+        inputTextField.setFocusTraversable(true);
+
+        inputTextField.setAccessibleRole(AccessibleRole.TEXT_AREA);
+        inputTextField.setAccessibleRoleDescription("Text Entry Box");
+        inputTextField.setAccessibleText("Enter commands in this box.");
+        inputTextField.setAccessibleHelp("This is the area in which you can enter commands you would like to play.  Enter a command and hit return to continue.");
+        addTextHandlingEvent(); //attach an event to this input field
+
+        //labels for inventory and room items
+        Label objLabel =  new Label("Objects in Room");
+        objLabel.setAlignment(Pos.CENTER);
+        objLabel.setStyle("-fx-text-fill: black;");
+        objLabel.setFont(new Font("Arial", 16));
+
+        Label invLabel =  new Label("Your Inventory");
+        invLabel.setAlignment(Pos.CENTER);
+        invLabel.setStyle("-fx-text-fill: black;");
+        invLabel.setFont(new Font("Arial", 16));
+
+        //add all the widgets to the GridPane
+        gridPane.add( objLabel, 0, 0, 1, 1 );  // Add label
+        gridPane.add( topButtons, 1, 0, 1, 1 );  // Add buttons
+        gridPane.add( invLabel, 2, 0, 1, 1 );  // Add label
+
+        Label commandLabel = new Label("What would you like to do?");
+        commandLabel.setStyle("-fx-text-fill: black;");
+        commandLabel.setFont(new Font("Arial", 16));
+
+        updateScene(""); //method displays an image and whatever text is supplied
+        updateItems(); //update items shows inventory and objects in rooms
+
+        // adding the text area and submit button to a VBox
+        VBox textEntry = new VBox();
+        textEntry.setStyle("-fx-background-color: #FFFFFF;");
+        textEntry.setPadding(new Insets(20, 20, 20, 20));
+        textEntry.getChildren().addAll(commandLabel, inputTextField);
+        textEntry.setSpacing(10);
+        textEntry.setAlignment(Pos.CENTER);
+        gridPane.add( textEntry, 0, 2, 3, 1 );
+
+        // add timer
+        time timee = new time(10, 0);
+        Label timer = new Label();
+        gridPane.add(timer, 1, 0);
+        timer.setStyle("-fx-text-fill: black;");
+        timer.setFont(new Font("Arial", 30));
+        timer.setText(timee.getCurrentTime());
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1),
+                        e -> {
+                            if(timee.getCurrentTime().equals("0:0")){
+                                gridPane.requestFocus();
+                                EndScreenView endscreen = new EndScreenView(this);
+                            }
+                            timee.oneSecondPassed();
+                            timer.setText(timee.getCurrentTime());
+                        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+    }
+
+    public void addNormalColourEvent() {
+        normalColourButton.setOnAction(e -> {
+            gridPane.requestFocus();
+            intiUI();
         });
     }
 
