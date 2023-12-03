@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 public class SuspectView {
 
     //FLOATING POINT ON EXAM
-    Button leftArrowButton, rightArrowButton, chooseButton;
+    Button leftArrowButton, rightArrowButton, chooseButton, goBack;
     AdventureGameView adventureGameView;
     GridPane gridPane = new GridPane();
     Stage stage;
@@ -103,6 +103,13 @@ public class SuspectView {
         AdventureGameView.makeButtonAccessible(chooseButton, "Choose Button", "Finalize your selection with this button.", "This button finalizes your selection. Press enter to proceed, or use the other buttons to select a different suspect.");
         addChooseButtonEvent();
 
+        goBack = new Button("Go Back");
+        goBack.setTextAlignment(TextAlignment.CENTER);
+        goBack.setId("Go Back");
+        customizeButton(goBack, 200, 50, false);
+        AdventureGameView.makeButtonAccessible(goBack, "Go Back", "Press this button to return to the game.", "Press this button to return to the game. You can also choose a suspect instead if youre confident in your choice");
+        addGoBackEvent();
+
 //        HBox topButtons = new HBox();
 //        topButtons.getChildren().addAll(saveButton, helpButton, loadButton);
 //        topButtons.setSpacing(10);
@@ -150,11 +157,11 @@ public class SuspectView {
 
 
 
-        gridPane.add(nodeCenter(instructionLabel), 1, 0);
+        gridPane.add(nodeCenter(new Node[] {instructionLabel, goBack}), 1, 0);
 
-        gridPane.add(nodeCenter(leftArrowButton), 0, 1);
-        gridPane.add(nodeCenter(rightArrowButton), 2, 1);
-        gridPane.add(nodeCenter(chooseButton), 1, 2);
+        gridPane.add(nodeCenter(new Button[] {leftArrowButton}), 0, 1);
+        gridPane.add(nodeCenter(new Button[] {rightArrowButton}), 2, 1);
+        gridPane.add(nodeCenter(new Button[] {chooseButton}), 1, 2);
 
 //        gridPane.setGridLinesVisible(true);
 
@@ -266,6 +273,12 @@ public class SuspectView {
         });
     }
 
+    private void addGoBackEvent() {
+        goBack.setOnAction(e -> {
+            AdventureGameView adventureGameView1 = new AdventureGameView(adventureGameView.model, this.stage);
+        });
+    }
+
     private void getRoomImage() {
 
         String roomImage = this.adventureGameView.model.getDirectoryName() + "/suspect-images/" + currentSuspectNum + ".png";
@@ -282,11 +295,11 @@ public class SuspectView {
         suspectImageView.setFocusTraversable(true);
     }
 
-    private VBox nodeCenter(Node node) {
+    private VBox nodeCenter(Node[] nodes) {
         VBox nodeCenter = new VBox();
         nodeCenter.setStyle("-fx-background-color: #000000;");
         nodeCenter.setPadding(new Insets(20, 20, 20, 20));
-        nodeCenter.getChildren().add(node);
+        nodeCenter.getChildren().addAll(nodes);
         nodeCenter.setSpacing(10);
         nodeCenter.setAlignment(Pos.CENTER);
         return nodeCenter;
