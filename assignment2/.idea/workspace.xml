@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="cf31af27-f5dc-402c-ae3b-6c2b44b5113f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/assignment2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/assignment2.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment2/AdventureModel/Suspect.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment2/Games/TinyGame/suspect-images/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment2/Games/TinyGame/suspect-images/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment2/Games/TinyGame/suspect-images/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment2/Games/TinyGame/suspect-images/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment2/Games/TinyGame/suspects.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment2/views/SuspectView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_4_2023_10_42_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_4_2023_10_42_AM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/AdventureGameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/views/AdventureGameView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,10 +24,10 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "git-widget-placeholder": "Sound",
-    "last_opened_file_path": "C:/Users/Christian Kevin/CSC207/javafx-sdk-21/lib/javafx.base.jar",
+    "last_opened_file_path": "C:/Users/rethi/Documents/Tugas/CSC207/freetts-1.2/lib",
     "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
 }]]></component>
   <component name="TaskManager">
