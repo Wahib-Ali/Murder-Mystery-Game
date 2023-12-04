@@ -29,6 +29,8 @@ import javafx.scene.AccessibleRole;
 import javax.xml.stream.events.EndElement;
 import java.io.File;
 import java.util.Objects;
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.VoiceManager;
 
 /**
  * Class AdventureGameView.
@@ -54,6 +56,7 @@ public class AdventureGameView {
     VBox objectsInInventory = new VBox(); //to hold inventory items
     ImageView roomImageView; //to hold room image
     TextField inputTextField; //for user input
+    Voice voice;
 
     private MediaPlayer mediaPlayer; //to play audio
     private boolean mediaPlaying; //to know if the audio is playing
@@ -200,6 +203,20 @@ public class AdventureGameView {
                         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+
+        //text-to-speech button
+        Button tts = new Button();
+        customizeButton(tts, 140, 50);
+        tts.setText("Articulate Desc");
+        makeButtonAccessible(tts, "Articulate Room Description Button", "Read room description.", "Run a text-to-speech sound to read the room description.");
+        tts.setOnAction(e -> {articulateRoomDescription();});
+        topButtons.getChildren().add(tts);
+
+        // text-to-speech setup
+        System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
+        VoiceManager vm = VoiceManager.getInstance();
+        this.voice = vm.getVoice("kevin16");
+        this.voice.allocate();
 
         // Render everything
         var scene = new Scene( gridPane ,  1000, 800);
@@ -735,19 +752,8 @@ public class AdventureGameView {
      * This method articulates Room Descriptions
      */
     public void articulateRoomDescription() {
-        String musicFile;
-        String adventureName = this.model.getDirectoryName();
-        String roomName = this.model.getPlayer().getCurrentRoom().getRoomName();
-
-        if (!this.model.getPlayer().getCurrentRoom().getVisited()) musicFile = "./" + adventureName + "/sounds/" + roomName.toLowerCase() + "-long.mp3" ;
-        else musicFile = "./" + adventureName + "/sounds/" + roomName.toLowerCase() + "-short.mp3" ;
-        musicFile = musicFile.replace(" ","-");
-
-        // Media sound = new Media(new File(musicFile).toURI().toString());
-
-        //mediaPlayer = new MediaPlayer(sound);
-        //mediaPlayer.play();
-        //mediaPlaying = true;
+        String desc = this.model.player.getCurrentRoom().getRoomDescription();
+        this.voice.speak(desc);
 
     }
 
