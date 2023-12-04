@@ -1,0 +1,31 @@
+Ethan Monroe
+False
+19
+Son
+Ethan is tall, around 6 feet with a lean build. He has tousled chestnut hair and piercing green eyes that often reflect intensity. He prefers classic and refined clothing, often seen in well-tailored suits or smart casual attire. He pays attention to detail, from his polished shoes to his neatly trimmed beard.
+Ethan had a complex relationship with his parent, filled with tension due to differing ideologies and ambitions. This friction often led to heated arguments. Despite his family's wealth, Ethan strives for financial independence and has invested in his own ventures, which haven't always been successful.
+Ethan had conflicting views with the victim regarding the family business. He felt stifled by the traditional ways and saw the victim's methods as outdated. He might have believed that eliminating the victim could pave the way for his vision to be realized.
+
+Maria Sanchez
+False
+42
+Maid
+Maria is of average height with a sturdy build, exuding a no-nonsense aura. Her dark, neatly tied hair frames a stern but kind face. Her hazel eyes hold a mix of warmth and determination. While working, she wears a traditional maid's uniform—a crisp, white blouse and a black skirt—always impeccably clean and pressed.
+Maria has been working for the victim's family for over a decade, witnessing both joyful and tumultuous moments within the household. However, While she appears content with her job, there might be underlying financial pressures or undisclosed motives related to her personal life.
+Maria might have felt strongly about certain decisions made by the victim that directly affected her or her principles. Perhaps she saw these decisions as unjust and was pushed to take drastic measures to rectify them. Her deep loyalty to the victim's family could be a facade, concealing any hidden grievances or long-standing issues she might have harbored.
+
+Alfred Thompson
+False
+50
+Butler
+Alfred is a distinguished figure, slightly taller than average with a dignified posture. His graying hair is always neatly combed, and his piercing blue eyes hold a sense of authority. He's often seen in a formal black suit, impeccably tailored, and meticulously maintained. His attire reflects his commitment to professionalism.
+Alfred has been the butler for the victim's family for over 20 years, witnessing the family's highs and lows. His loyalty is unquestionable, but there might be more to his history than meets the eye. He also keeps his personal life strictly private, rarely mingling outside of his duties. Speculations about his past or connections to the family have circulated, but nothing concrete has been confirmed.
+Alfred's unwavering loyalty might have masked any grievances he held against the victim or the family. Perhaps changes in the family's direction or decisions challenged his deeply rooted sense of loyalty and duty. His meticulous nature might have led him to discover something crucial or suspicious, pushing him to take drastic actions to protect the family or conceal certain secrets.
+
+Victoria "Vicky" Sinclair
+True
+45
+Wife
+Victoria carries an elegant stature with grace. Her black hair falls in soft waves around her shoulders, and her hazel eyes exude both warmth and a hint of mystery. She dresses impeccably, favoring designer clothing that accentuates her sophisticated yet approachable demeanor.
+Despite the facade of a perfect marriage, recent conflicts and disagreements between Victoria and the victim were becoming apparent. These disputes often revolved around family decisions and financial matters. She's cordial with the staff but maintains a certain distance, occasionally showing glimpses of frustration or tension, especially during heated moments with the victim.
+Victoria might have felt constrained or unhappy within the marriage due to differing visions for their future or financial disagreements.
