@@ -195,6 +195,14 @@ public class AdventureGameView {
         timeline.play();
 
         // Render everything
+        //text-to-speech button
+        Button tts = new Button();
+        customizeButton(tts, 140, 50);
+        tts.setText("Articulate Desc");
+        makeButtonAccessible(tts, "Articulate Room Description Button", "Read room description.", "Run a text-to-speech sound to read the room description.");
+        tts.setOnAction(e -> {articulateRoomDescription();});
+        topButtons.getChildren().add(tts);
+
         var scene = new Scene( gridPane ,  1000, 800);
         scene.setFill(Color.BLACK);
         this.stage.setScene(scene);
