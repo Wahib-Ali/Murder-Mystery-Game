@@ -58,6 +58,8 @@ public class AdventureGameView {
     ImageView roomImageView; //to hold room image
     TextField inputTextField; //for user input
     // Voice voice;
+    time Time; // for keeping track of timer
+    Label timer; // timer display
 
     private MediaPlayer mediaPlayer; //to play audio
     private boolean mediaPlaying; //to know if the audio is playing
@@ -71,6 +73,24 @@ public class AdventureGameView {
     public AdventureGameView(AdventureGame model, Stage stage) {
         this.model = model;
         this.stage = stage;
+        //set up timer
+        this.Time = new time(10, 0);
+        this.timer = new Label();
+        this.timer.setStyle("-fx-text-fill: white;");
+        this.timer.setFont(new Font("Arial", 30));
+        this.timer.setText(this.Time.getCurrentTime());
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1),
+                        e -> {
+                            if(this.Time.getCurrentTime().equals("0:0")){
+                                gridPane.requestFocus();
+                                EndScreenView endscreen = new EndScreenView(this, colourInvert);
+                            }
+                            this.Time.oneSecondPassed();
+                            timer.setText(this.Time.getCurrentTime());
+                        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
         colourChooser();
     }
 
@@ -250,25 +270,8 @@ public class AdventureGameView {
         textEntry.setAlignment(Pos.CENTER);
         gridPane.add( textEntry, 0, 2, 3, 1 );
 
-        // add timer
-        time timee = new time(10, 0);
-        Label timer = new Label();
-        gridPane.add(timer, 1, 0);
-        timer.setStyle("-fx-text-fill: white;");
-        timer.setFont(new Font("Arial", 30));
-        timer.setText(timee.getCurrentTime());
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(1),
-                        e -> {
-                            if(timee.getCurrentTime().equals("0:0")){
-                                gridPane.requestFocus();
-                                EndScreenView endscreen = new EndScreenView(this, colourInvert);
-                            }
-                            timee.oneSecondPassed();
-                            timer.setText(timee.getCurrentTime());
-                        }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+        // add timer label
+        gridPane.add(this.timer, 1, 0);
 
         //text-to-speech button
         Button tts = new Button();
@@ -496,6 +499,7 @@ public class AdventureGameView {
 
         if (colourInvert == 1) {
             roomPane.setStyle("-fx-background-color: #FFFFFF;");
+            roomDescLabel.setStyle("-fx-text-fill: black;");
         } else {
             roomPane.setStyle("-fx-background-color: #000000;");
         }
@@ -926,6 +930,7 @@ public class AdventureGameView {
 
         inputTextField = new TextField();
         inputTextField.setFont(new Font("Arial", 16));
+        inputTextField.setStyle("-fx-background-color: #e878e4; -fx-text-fill: black;");
         inputTextField.setFocusTraversable(true);
 
         inputTextField.setAccessibleRole(AccessibleRole.TEXT_AREA);
@@ -967,24 +972,8 @@ public class AdventureGameView {
         gridPane.add( textEntry, 0, 2, 3, 1 );
 
         // add timer
-        time timee = new time(10, 0);
-        Label timer = new Label();
-        gridPane.add(timer, 1, 0);
-        timer.setStyle("-fx-text-fill: black;");
-        timer.setFont(new Font("Arial", 30));
-        timer.setText(timee.getCurrentTime());
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(1),
-                        e -> {
-                            if(timee.getCurrentTime().equals("0:0")){
-                                gridPane.requestFocus();
-                                EndScreenView endscreen = new EndScreenView(this, colourInvert);
-                            }
-                            timee.oneSecondPassed();
-                            timer.setText(timee.getCurrentTime());
-                        }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+        this.timer.setStyle("-fx-background-color: #e878e4; -fx-text-fill: black;");
+        gridPane.add(this.timer, 1, 0);
 
         //text-to-speech button
         Button tts = new Button();
