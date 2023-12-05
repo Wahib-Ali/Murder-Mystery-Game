@@ -13,18 +13,30 @@ public class EndScreenView {
     boolean win = false;
     public String suspectList;
     public String endingtext;
-    public EndScreenView(AdventureGameView view){
+    public EndScreenView(AdventureGameView view, int colourInvert){
         view.gridPane.getChildren().clear();
 
         Label who = new Label("\nPick a suspect. Now!!");
         Label suspect = new Label("Suspect 1: Ethan Monroe, 19\nSuspect 2: Maria Sanchez, 42, Maid\nSuspect 3: Alfred Thompson, 50, Butler\n" +
                 "Suspect 4:Victoria Sinclair");
         who.setAlignment(Pos.CENTER);
-        who.setStyle("-fx-text-fill: white;");
+
+        if (colourInvert == 1) {
+            who.setStyle("-fx-text-fill: black;");
+        } else {
+            who.setStyle("-fx-text-fill: white;");
+        }
+
         who.setFont(new Font("Arial", 30));
 
         suspect.setAlignment(Pos.CENTER);
-        suspect.setStyle("-fx-text-fill: white;");
+
+        if (colourInvert == 1) {
+            suspect.setStyle("-fx-text-fill: black;");
+        } else {
+            suspect.setStyle("-fx-text-fill: white;");
+        }
+
         suspect.setFont(new Font("Arial", 20));
 
         Label ending = new Label ("\n" +
@@ -55,19 +67,32 @@ public class EndScreenView {
                 " entangled in a web of secrets that had long festered within the walls of the mansion.");
 
         ending.setAlignment(Pos.CENTER);
-        ending.setStyle("-fx-text-fill: white;");
+
+
+        if (colourInvert == 1) {
+            ending.setStyle("-fx-text-fill: black;");
+        } else {
+            ending.setStyle("-fx-text-fill: white;");
+        }
+
         ending.setFont(new Font("Arial", 12));
 
         Button s1 = new Button("Suspect 1");
         s1.setId("s1");
-        customizeButton(s1, 100, 50);
+        customizeButton(s1, 100, 50, colourInvert);
         s1.setOnAction(e -> {
             view.gridPane.getChildren().clear();
 
             Label lose = new Label("You Lost!");
 
             lose.setAlignment(Pos.CENTER);
-            lose.setStyle("-fx-text-fill: white;");
+
+            if (colourInvert == 1) {
+                lose.setStyle("-fx-text-fill: black;");
+            } else {
+                lose.setStyle("-fx-text-fill: white;");
+            }
+
             lose.setFont(new Font("Arial", 30));
 
             view.gridPane.add(lose, 0, 1);
@@ -82,14 +107,20 @@ public class EndScreenView {
 
         Button s2 = new Button("Suspect 2");
         s2.setId("s2");
-        customizeButton(s2, 100, 50);
+        customizeButton(s2, 100, 50, colourInvert);
         s2.setOnAction(e -> {
             view.gridPane.getChildren().clear();
 
             Label lose = new Label("You Lost!");
 
             lose.setAlignment(Pos.CENTER);
-            lose.setStyle("-fx-text-fill: white;");
+
+            if (colourInvert == 1) {
+                lose.setStyle("-fx-text-fill: black;");
+            } else {
+                lose.setStyle("-fx-text-fill: white;");
+            }
+
             lose.setFont(new Font("Arial", 30));
 
             view.gridPane.add(lose, 0, 1);
@@ -104,14 +135,20 @@ public class EndScreenView {
 
         Button s3 = new Button("Suspect 3");
         s3.setId("s3");
-        customizeButton(s3, 100, 50);
+        customizeButton(s3, 100, 50, colourInvert);
         s3.setOnAction(e -> {
             view.gridPane.getChildren().clear();
 
             Label lose = new Label("You Lost!");
 
             lose.setAlignment(Pos.CENTER);
-            lose.setStyle("-fx-text-fill: white;");
+
+            if (colourInvert == 1) {
+                lose.setStyle("-fx-text-fill: black;");
+            } else {
+                lose.setStyle("-fx-text-fill: white;");
+            }
+
             lose.setFont(new Font("Arial", 30));
 
             view.gridPane.add(lose, 0, 1);
@@ -125,14 +162,20 @@ public class EndScreenView {
 
         Button s4 = new Button("Suspect 4");
         s4.setId("s4");
-        customizeButton(s4, 100, 50);
+        customizeButton(s4, 100, 50, colourInvert);
         s4.setOnAction(e -> {
             view.gridPane.getChildren().clear();
 
             Label win = new Label("You Win!");
 
             win.setAlignment(Pos.CENTER);
-            win.setStyle("-fx-text-fill: white;");
+
+            if (colourInvert == 1) {
+                win.setStyle("-fx-text-fill: black;");
+            } else {
+                win.setStyle("-fx-text-fill: white;");
+            }
+
             win.setFont(new Font("Arial", 30));
 
             view.gridPane.add(win, 0, 1);
@@ -153,15 +196,18 @@ public class EndScreenView {
         view.gridPane.add(who, 1, 0);
         view.gridPane.add(suspect,1,1);
 
-
-
-
-
     }
 
-    private void customizeButton(Button inputButton, int w, int h) {
+    private void customizeButton(Button inputButton, int w, int h, int colourInvert) {
         inputButton.setPrefSize(w, h);
         inputButton.setFont(new Font("Arial", 16));
-        inputButton.setStyle("-fx-background-color: #17871b; -fx-text-fill: white;");
+
+        if (colourInvert == 1){
+            inputButton.setStyle("-fx-background-color: #e878e4; -fx-text-fill: black;");
+        } else {
+            inputButton.setStyle("-fx-background-color: #17871b; -fx-text-fill: white;");
+        }
     }
 }
+
+
