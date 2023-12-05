@@ -60,8 +60,18 @@ public class BasicAdventureTest {
 
     //test for 2.3
     @Test
-    void End_Of_Game() throws IOException {
-        //
+    void testEndScreenView() {
+        // Initialize EndScreenView
+        EndScreenView endScreenView = new EndScreenView(adventureGameView, 1);
+
+        // Assert that the EndScreenView is not null
+        assertNotNull(endScreenView);
+
+        // Assert that the gridPane of AdventureGameView is not null
+        assertNotNull(adventureGameView.gridPane);
+
+        // Assert that the gridPane of AdventureGameView is cleared
+        assertEquals(0, adventureGameView.gridPane.getChildren().size());
     }
 
     //test for 2.4
