@@ -15,18 +15,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-/**
- * Class SuspectView
- *
- * This class visualizes all suspects in the game and displays information about each suspect.
- */
-
 public class SuspectView {
 
     //FLOATING POINT ON EXAM
     Button leftArrowButton, rightArrowButton, chooseButton, goBack;
     AdventureGameView adventureGameView;
-    GridPane gridPane = new GridPane();
+    GridPane gridPane;
     Stage stage;
     Suspect currentSuspect;
     int currentSuspectNum = 1;
@@ -38,19 +32,14 @@ public class SuspectView {
 //    Label motiveLabel = new Label("");
     ImageView suspectImageView;
 
-    /**
-     * SuspectView Constructor:
-     * __________________________
-     *
-     * Initializes required attributes.
-     *
-     * @param adventureGameView: The AdventureGameView associated with this SuspectView.
-     */
+
+
+
     SuspectView (AdventureGameView adventureGameView, int colour) {
 
         this.adventureGameView = adventureGameView;
         this.stage = adventureGameView.stage;
-
+        this.gridPane = adventureGameView.gridPane;
         this.colourInvert = colour;
 
         if (colour == 0){
@@ -61,14 +50,10 @@ public class SuspectView {
 
     }
 
-    /**
-     * intiUI
-     * __________________________
-     * Initializes the GUI of SuspectView with normal colours.
-     */
     public void intiUI() {
 
         this.stage.setTitle("Suspect Screen");
+        this.gridPane.getChildren().clear();
 
 //        //Inventory + Room items
 //        objectsInInventory.setSpacing(10);
@@ -209,24 +194,19 @@ public class SuspectView {
 //        gridPane.add( textEntry, 0, 2, 3, 1 );
 
         // Render everything
-        var scene = new Scene( gridPane ,  1000, 800);
-        scene.setFill(Color.BLACK);
-        this.stage.setScene(scene);
-        this.stage.setResizable(false);
-        this.stage.show();
+//        var scene = new Scene( gridPane ,  1000, 800);
+//        scene.setFill(Color.BLACK);
+//        this.stage.setScene(scene);
+//        this.stage.setResizable(false);
+//        this.stage.show();
 
 
     }
 
-
-    /**
-     * intiUI
-     * __________________________
-     * Initializes the GUI of SuspectView with inverted colours.
-     */
     public void intiUI1() {
 
         this.stage.setTitle("Suspect Screen");
+        this.gridPane.getChildren().clear();
 
 //        //Inventory + Room items
 //        objectsInInventory.setSpacing(10);
@@ -365,24 +345,14 @@ public class SuspectView {
 //        gridPane.add( textEntry, 0, 2, 3, 1 );
 
         // Render everything
-        var scene = new Scene( gridPane ,  1000, 800);
-        scene.setFill(Color.WHITE);
-        this.stage.setScene(scene);
-        this.stage.setResizable(false);
-        this.stage.show();
+//        var scene = new Scene( gridPane ,  1000, 800);
+//        scene.setFill(Color.WHITE);
+//        this.stage.setScene(scene);
+//        this.stage.setResizable(false);
+//        this.stage.show();
 
     }
 
-    /**
-     * customizeButton
-     * __________________________
-     * This method customizes the button to the normal style of the game.
-     *
-     * @param inputButton the button to customize
-     * @param w the width to set the button to
-     * @param h the height to set the button to
-     * @param isArrow true if button is an arrow button. False otherwise.
-     */
     private void customizeButton(Button inputButton, int w, int h, boolean isArrow) {
         inputButton.setPrefSize(w, h);
 
@@ -395,16 +365,6 @@ public class SuspectView {
         inputButton.setStyle("-fx-background-color: #17871b; -fx-text-fill: white;");
     }
 
-    /**
-     * customizeButton1
-     * __________________________
-     * This method customizes the button to the inverted style of the game.
-     *
-     * @param inputButton the button to customize
-     * @param w the width to set the button to
-     * @param h the height to set the button to
-     * @param isArrow true if button is an arrow button. False otherwise.
-     */
     private void customizeButton1(Button inputButton, int w, int h, boolean isArrow) {
         inputButton.setPrefSize(w, h);
 
@@ -417,14 +377,6 @@ public class SuspectView {
         inputButton.setStyle("-fx-background-color: #e878e4; -fx-text-fill: black;");
     }
 
-    /**
-     * updateScene
-     * __________________________
-     * This method updates the scene based on the which directional arrow was pressed.
-     * Allows user to navigate through the suspects.
-     *
-     * @param direction the direction indicating which arrow button was pressed.
-     */
     private void updateScene(String direction) {
 
         if (direction.equals("")) {
@@ -480,56 +432,38 @@ public class SuspectView {
     }
 
 
-    /**
-    * addLeftNavigateEvent
-    * __________________________
-    * Adds an event action that occurs when <leftArrowButton> is pressed
-    */
+
     private void addLeftNavigateEvent() {
         leftArrowButton.setOnAction(e -> {
             updateScene("LEFT");
         });
     }
 
-    /**
-    * addRightNavigateEvent
-    * __________________________
-    * Adds an event action that occurs when <rightArrowButton> is pressed
-    */
     private void addRightNavigateEvent() {
         rightArrowButton.setOnAction(e -> {
             updateScene("RIGHT");
         });
     }
 
-    /**
-     * addChooseButtonEvent
-     * __________________________
-     * Adds an event action that occurs when <chooseButton> is pressed
-     */
+
     private void addChooseButtonEvent() {
         chooseButton.setOnAction(e -> {
-            //TODO: INITIALIZE A NEW VIEW HERE
+            EndScreenView end = new EndScreenView(this.adventureGameView, this.colourInvert);
         });
     }
 
-    /**
-     * addGoBackEvent
-     * __________________________
-     * Adds an event action that occurs when <goBack> is pressed
-     */
     private void addGoBackEvent() {
         goBack.setOnAction(e -> {
-            AdventureGameView adventureGameView1 = new AdventureGameView(adventureGameView.model, this.stage);
+            this.adventureGameView.gridPane.getChildren().clear();
+            if (this.adventureGameView.colourInvert == 0) {
+                this.adventureGameView.intiUI();
+            }
+            else {
+                this.adventureGameView.intiUI2();
+            }
         });
     }
 
-
-    /**
-     * getRoomImage
-     * __________________________
-     * getds and displays the current suspect image
-     */
     private void getRoomImage() {
 
         String roomImage = this.adventureGameView.model.getDirectoryName() + "/suspect-images/" + currentSuspectNum + ".png";
@@ -546,15 +480,6 @@ public class SuspectView {
         suspectImageView.setFocusTraversable(true);
     }
 
-    /**
-     * nodeCenter
-     * __________________________
-     * Return a Vbox which centers a list of nodes.
-     * Used to center nodes in grid pane grids.
-     *
-     * @param nodes the array of nodes to center.
-     * @return a Vbox, which centers the nodes in the grid pane.
-     */
     private VBox nodeCenter(Node[] nodes) {
         VBox nodeCenter = new VBox();
         if (colourInvert == 0){
