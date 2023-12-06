@@ -29,7 +29,9 @@ public class BasicAdventureTest {
     //test for 1.3
     @Test
     void RoomConnection() throws IOException {
-        //
+        AdventureGame adventureGame = new AdventureGame("TinyGame");
+        assertEquals("mansion_library", adventureGame.getRooms().get(1).getRoomName());
+        assertEquals("mansion_billiard_room", adventureGame.getRooms().get(12).getRoomName());
     }
 
     //test for 1.4
@@ -77,7 +79,11 @@ public class BasicAdventureTest {
     //test for 2.4
     @Test
     void SuspectFeature() throws IOException {
-        //
+        AdventureGame adventureGame = new AdventureGame("TinyGame");
+
+        assertEquals("Ethan Monroe", adventureGame.getSuspects().get(1).getName());
+        assertFalse(adventureGame.getSuspects().get(1).isMurderer());
+        assertTrue(adventureGame.getSuspects().get(4).isMurderer());
     }
 
     //test for 3.1
@@ -96,12 +102,6 @@ public class BasicAdventureTest {
     @Test
     void TimerIssue() throws IOException {
         // can only be tested manually
-    }
-
-    //test for 3.6
-    @Test
-    void SuspectFeatureFix() throws IOException {
-        //
     }
 
 
