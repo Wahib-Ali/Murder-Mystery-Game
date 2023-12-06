@@ -30,7 +30,9 @@ public class AdventureLoader {
     public void loadGame() throws IOException {
         parseRooms();
         parseObjects();
+        parseClues();
         parseSynonyms();
+        parseSuspects();
         this.game.setHelpText(parseOtherFile("help"));
     }
 
@@ -111,6 +113,26 @@ public class AdventureLoader {
 
     }
 
+    public void parseClues() throws IOException {
+
+        String cluesFileName = this.adventureName + "/clues.txt";
+        BufferedReader buff = new BufferedReader(new FileReader(cluesFileName));
+
+        while (buff.ready()) {
+            String clueName = buff.readLine();
+            String clueDescription = buff.readLine();
+            String clueLocation = buff.readLine();
+            String separator = buff.readLine();
+            if (separator != null && !separator.isEmpty())
+                System.out.println("Formatting Error!");
+            int i = Integer.parseInt(clueLocation);
+            Room location = this.game.getRooms().get(i);
+            AdventureClue clue = new AdventureClue(clueName, clueDescription, location);
+            location.addGameClue(clue);
+        }
+
+    }
+
      /**
      * Parse Synonyms File
      */
@@ -126,6 +148,53 @@ public class AdventureLoader {
             line = buff.readLine();
         }
 
+    }
+
+    public void parseSuspects() throws IOException {
+
+        String suspectsFileName = this.adventureName + "/suspects.txt";
+        BufferedReader buff = new BufferedReader(new FileReader(suspectsFileName));
+        String line = buff.readLine();
+
+        int count = 1;
+
+        String name;
+        boolean isMurderer;
+        int age;
+        String relation;
+        String description;
+        String background;
+        String motive;
+
+        while(line != null){
+
+            name = line;
+            line = buff.readLine();
+
+            isMurderer = Boolean.parseBoolean(line);
+            line = buff.readLine();
+
+            age = Integer.parseInt(line);
+            line = buff.readLine();
+
+            relation = line;
+            line = buff.readLine();
+
+            description = line;
+            line = buff.readLine();
+
+            background = line;
+            line = buff.readLine();
+
+            motive = line;
+            line = buff.readLine();
+
+            Suspect suspect = new Suspect(name, isMurderer, age, relation, description, background, motive);
+            this.game.getSuspects().put(count, suspect);
+
+            line = buff.readLine();
+            count += 1;
+        }
     }
 
     /**
@@ -144,5 +213,4 @@ public class AdventureLoader {
         }
         return text;
     }
-
 }
