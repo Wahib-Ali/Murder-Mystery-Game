@@ -15,6 +15,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+/**
+ * Class SuspectView
+ *
+ * This class visualizes all suspects in the game and displays information about each suspect.
+ */
 public class SuspectView {
 
     //FLOATING POINT ON EXAM
@@ -27,14 +32,18 @@ public class SuspectView {
     int colourInvert;
     Label instructionLabel = new Label("Choose The Correct Suspect");
     Label suspectDescLabel = new Label("");
-    //    Label descLabel = new Label("");
-//    Label backgroundLabel = new Label("");
-//    Label motiveLabel = new Label("");
     ImageView suspectImageView;
 
 
 
-
+    /**
+     * SuspectView Constructor:
+     * __________________________
+     *
+     * Initializes required attributes.
+     *
+     * @param adventureGameView: The AdventureGameView associated with this SuspectView.
+     */
     SuspectView (AdventureGameView adventureGameView, int colour) {
 
         this.adventureGameView = adventureGameView;
@@ -50,16 +59,15 @@ public class SuspectView {
 
     }
 
+    /**
+     * intiUI
+     * __________________________
+     * Initializes the GUI of SuspectView with normal colours.
+     */
     public void intiUI() {
 
         this.stage.setTitle("Suspect Screen");
         this.gridPane.getChildren().clear();
-
-//        //Inventory + Room items
-//        objectsInInventory.setSpacing(10);
-//        objectsInInventory.setAlignment(Pos.TOP_CENTER);
-//        objectsInRoom.setSpacing(10);
-//        objectsInRoom.setAlignment(Pos.TOP_CENTER);
 
         // GridPane, anyone?
         gridPane.setPadding(new Insets(20));
@@ -119,21 +127,6 @@ public class SuspectView {
         AdventureGameView.makeButtonAccessible(goBack, "Go Back", "Press this button to return to the game.", "Press this button to return to the game. You can also choose a suspect instead if youre confident in your choice");
         addGoBackEvent();
 
-//        HBox topButtons = new HBox();
-//        topButtons.getChildren().addAll(saveButton, helpButton, loadButton);
-//        topButtons.setSpacing(10);
-//        topButtons.setAlignment(Pos.CENTER);
-
-//        inputTextField = new TextField();
-//        inputTextField.setFont(new Font("Arial", 16));
-//        inputTextField.setFocusTraversable(true);
-//
-//        inputTextField.setAccessibleRole(AccessibleRole.TEXT_AREA);
-//        inputTextField.setAccessibleRoleDescription("Text Entry Box");
-//        inputTextField.setAccessibleText("Enter commands in this box.");
-//        inputTextField.setAccessibleHelp("This is the area in which you can enter commands you would like to play.  Enter a command and hit return to continue.");
-//        addTextHandlingEvent(); //attach an event to this input field
-
 //        //labels for inventory and room items
 
         instructionLabel.setAlignment(Pos.CENTER);
@@ -145,74 +138,26 @@ public class SuspectView {
         suspectDescLabel.setFont(new Font("Arial", 16)); //FIXME: ADD COLOUR INVERSION COMPATIBILITY. USE colourInvert (bool).
 
 
-//        Label objLabel =  new Label("Objects in Room");
-//        objLabel.setAlignment(Pos.CENTER);
-//        objLabel.setStyle("-fx-text-fill: white;");
-//        objLabel.setFont(new Font("Arial", 16));
-//
-//        Label invLabel =  new Label("Your Inventory");
-//        invLabel.setAlignment(Pos.CENTER);
-//        invLabel.setStyle("-fx-text-fill: white;");
-//        invLabel.setFont(new Font("Arial", 16));
-//
-//        //add all the widgets to the GridPane
-
-//        VBox textEntry = new VBox();
-//        textEntry.setStyle("-fx-background-color: #000000;");
-//        textEntry.setPadding(new Insets(20, 20, 20, 20));
-//        textEntry.getChildren().add(suspectNameLabel);
-//        textEntry.setSpacing(10);
-//        textEntry.setAlignment(Pos.CENTER);
-
-
-
         gridPane.add(nodeCenter(new Node[] {instructionLabel, goBack}), 1, 0);
 
         gridPane.add(nodeCenter(new Button[] {leftArrowButton}), 0, 1);
         gridPane.add(nodeCenter(new Button[] {rightArrowButton}), 2, 1);
         gridPane.add(nodeCenter(new Button[] {chooseButton}), 1, 2);
 
-//        gridPane.setGridLinesVisible(true);
-
-//        gridPane.add( objLabel, 0, 0, 1, 1 );  // Add label
-//        gridPane.add( topButtons, 1, 0, 1, 1 );  // Add buttons
-//        gridPane.add( invLabel, 2, 0, 1, 1 );  // Add label
-
-//        Label commandLabel = new Label("What would you like to do?");
-//        commandLabel.setStyle("-fx-text-fill: white;");
-//        commandLabel.setFont(new Font("Arial", 16));
 
         updateScene(""); //method displays an image and whatever text is supplied
-
-//        // adding the text area and submit button to a VBox
-//        VBox textEntry = new VBox();
-//        textEntry.setStyle("-fx-background-color: #000000;");
-//        textEntry.setPadding(new Insets(20, 20, 20, 20));
-//        textEntry.getChildren().addAll(commandLabel, inputTextField);
-//        textEntry.setSpacing(10);
-//        textEntry.setAlignment(Pos.CENTER);
-//        gridPane.add( textEntry, 0, 2, 3, 1 );
-
-        // Render everything
-//        var scene = new Scene( gridPane ,  1000, 800);
-//        scene.setFill(Color.BLACK);
-//        this.stage.setScene(scene);
-//        this.stage.setResizable(false);
-//        this.stage.show();
-
-
     }
 
+    /**
+     * intiUI
+     * __________________________
+     * Initializes the GUI of SuspectView with inverted colours.
+     */
     public void intiUI1() {
 
         this.stage.setTitle("Suspect Screen");
         this.gridPane.getChildren().clear();
 
-//        //Inventory + Room items
-//        objectsInInventory.setSpacing(10);
-//        objectsInInventory.setAlignment(Pos.TOP_CENTER);
-//        objectsInRoom.setSpacing(10);
-//        objectsInRoom.setAlignment(Pos.TOP_CENTER);
 
         // GridPane, anyone?
         gridPane.setPadding(new Insets(20));
@@ -272,21 +217,6 @@ public class SuspectView {
         AdventureGameView.makeButtonAccessible(goBack, "Go Back", "Press this button to return to the game.", "Press this button to return to the game. You can also choose a suspect instead if youre confident in your choice");
         addGoBackEvent();
 
-//        HBox topButtons = new HBox();
-//        topButtons.getChildren().addAll(saveButton, helpButton, loadButton);
-//        topButtons.setSpacing(10);
-//        topButtons.setAlignment(Pos.CENTER);
-
-//        inputTextField = new TextField();
-//        inputTextField.setFont(new Font("Arial", 16));
-//        inputTextField.setFocusTraversable(true);
-//
-//        inputTextField.setAccessibleRole(AccessibleRole.TEXT_AREA);
-//        inputTextField.setAccessibleRoleDescription("Text Entry Box");
-//        inputTextField.setAccessibleText("Enter commands in this box.");
-//        inputTextField.setAccessibleHelp("This is the area in which you can enter commands you would like to play.  Enter a command and hit return to continue.");
-//        addTextHandlingEvent(); //attach an event to this input field
-
 //        //labels for inventory and room items
 
         instructionLabel.setAlignment(Pos.CENTER);
@@ -298,61 +228,26 @@ public class SuspectView {
         suspectDescLabel.setFont(new Font("Arial", 16));
 
 
-//        Label objLabel =  new Label("Objects in Room");
-//        objLabel.setAlignment(Pos.CENTER);
-//        objLabel.setStyle("-fx-text-fill: white;");
-//        objLabel.setFont(new Font("Arial", 16));
-//
-//        Label invLabel =  new Label("Your Inventory");
-//        invLabel.setAlignment(Pos.CENTER);
-//        invLabel.setStyle("-fx-text-fill: white;");
-//        invLabel.setFont(new Font("Arial", 16));
-//
-//        //add all the widgets to the GridPane
-
-//        VBox textEntry = new VBox();
-//        textEntry.setStyle("-fx-background-color: #000000;");
-//        textEntry.setPadding(new Insets(20, 20, 20, 20));
-//        textEntry.getChildren().add(suspectNameLabel);
-//        textEntry.setSpacing(10);
-//        textEntry.setAlignment(Pos.CENTER);
-
         gridPane.add(nodeCenter(new Node[] {instructionLabel, goBack}), 1, 0);
 
         gridPane.add(nodeCenter(new Button[] {leftArrowButton}), 0, 1);
         gridPane.add(nodeCenter(new Button[] {rightArrowButton}), 2, 1);
         gridPane.add(nodeCenter(new Button[] {chooseButton}), 1, 2);
 
-//        gridPane.setGridLinesVisible(true);
-
-//        gridPane.add( objLabel, 0, 0, 1, 1 );  // Add label
-//        gridPane.add( topButtons, 1, 0, 1, 1 );  // Add buttons
-//        gridPane.add( invLabel, 2, 0, 1, 1 );  // Add label
-
-//        Label commandLabel = new Label("What would you like to do?");
-//        commandLabel.setStyle("-fx-text-fill: white;");
-//        commandLabel.setFont(new Font("Arial", 16));
 
         updateScene(""); //method displays an image and whatever text is supplied
-
-//        // adding the text area and submit button to a VBox
-//        VBox textEntry = new VBox();
-//        textEntry.setStyle("-fx-background-color: #000000;");
-//        textEntry.setPadding(new Insets(20, 20, 20, 20));
-//        textEntry.getChildren().addAll(commandLabel, inputTextField);
-//        textEntry.setSpacing(10);
-//        textEntry.setAlignment(Pos.CENTER);
-//        gridPane.add( textEntry, 0, 2, 3, 1 );
-
-        // Render everything
-//        var scene = new Scene( gridPane ,  1000, 800);
-//        scene.setFill(Color.WHITE);
-//        this.stage.setScene(scene);
-//        this.stage.setResizable(false);
-//        this.stage.show();
-
     }
 
+    /**
+     * customizeButton
+     * __________________________
+     * This method customizes the button to the normal style of the game.
+     *
+     * @param inputButton the button to customize
+     * @param w the width to set the button to
+     * @param h the height to set the button to
+     * @param isArrow true if button is an arrow button. False otherwise.
+     */
     private void customizeButton(Button inputButton, int w, int h, boolean isArrow) {
         inputButton.setPrefSize(w, h);
 
@@ -365,6 +260,16 @@ public class SuspectView {
         inputButton.setStyle("-fx-background-color: #17871b; -fx-text-fill: white;");
     }
 
+    /**
+     * customizeButton1
+     * __________________________
+     * This method customizes the button to the inverted style of the game.
+     *
+     * @param inputButton the button to customize
+     * @param w the width to set the button to
+     * @param h the height to set the button to
+     * @param isArrow true if button is an arrow button. False otherwise.
+     */
     private void customizeButton1(Button inputButton, int w, int h, boolean isArrow) {
         inputButton.setPrefSize(w, h);
 
@@ -377,6 +282,14 @@ public class SuspectView {
         inputButton.setStyle("-fx-background-color: #e878e4; -fx-text-fill: black;");
     }
 
+    /**
+     * updateScene
+     * __________________________
+     * This method updates the scene based on the which directional arrow was pressed.
+     * Allows user to navigate through the suspects.
+     *
+     * @param direction the direction indicating which arrow button was pressed.
+     */
     private void updateScene(String direction) {
 
         if (direction.equals("")) {
@@ -432,26 +345,44 @@ public class SuspectView {
     }
 
 
-
+    /**
+     * addLeftNavigateEvent
+     * __________________________
+     * Adds an event action that occurs when <leftArrowButton> is pressed
+     */
     private void addLeftNavigateEvent() {
         leftArrowButton.setOnAction(e -> {
             updateScene("LEFT");
         });
     }
 
+    /**
+     * addRightNavigateEvent
+     * __________________________
+     * Adds an event action that occurs when <rightArrowButton> is pressed
+     */
     private void addRightNavigateEvent() {
         rightArrowButton.setOnAction(e -> {
             updateScene("RIGHT");
         });
     }
 
-
+    /**
+     * addChooseButtonEvent
+     * __________________________
+     * Adds an event action that occurs when <chooseButton> is pressed
+     */
     private void addChooseButtonEvent() {
         chooseButton.setOnAction(e -> {
             EndScreenView end = new EndScreenView(this.adventureGameView, this.colourInvert);
         });
     }
 
+    /**
+     * addGoBackEvent
+     * __________________________
+     * Adds an event action that occurs when <goBack> is pressed
+     */
     private void addGoBackEvent() {
         goBack.setOnAction(e -> {
             this.adventureGameView.gridPane.getChildren().clear();
@@ -464,6 +395,11 @@ public class SuspectView {
         });
     }
 
+    /**
+     * getRoomImage
+     * __________________________
+     * getds and displays the current suspect image
+     */
     private void getRoomImage() {
 
         String roomImage = this.adventureGameView.model.getDirectoryName() + "/suspect-images/" + currentSuspectNum + ".png";
@@ -480,6 +416,15 @@ public class SuspectView {
         suspectImageView.setFocusTraversable(true);
     }
 
+    /**
+     * nodeCenter
+     * __________________________
+     * Return a Vbox which centers a list of nodes.
+     * Used to center nodes in grid pane grids.
+     *
+     * @param nodes the array of nodes to center.
+     * @return a Vbox, which centers the nodes in the grid pane.
+     */
     private VBox nodeCenter(Node[] nodes) {
         VBox nodeCenter = new VBox();
         if (colourInvert == 0){
