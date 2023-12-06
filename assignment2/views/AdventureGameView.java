@@ -29,14 +29,18 @@ import javafx.scene.AccessibleRole;
 import javax.xml.stream.events.EndElement;
 import java.io.File;
 import java.util.Objects;
-//import com.sun.speech.freetts.Voice; uncomment
-//import com.sun.speech.freetts.VoiceManager; uncomment
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.VoiceManager;
 
 /**
  * Class AdventureGameView.
  *
- * This Class visualizes the game model.
+ * This is the Class that will visualize your model.
+ * You are asked to demo your visualization via a Zoom
+ * recording. Place a link to your recording below.
  *
+ * ZOOM LINK: https://drive.google.com/file/d/15rqSZpYpOd5PUS0MR_xkQ6Zvjd8pcTNK/view?usp=sharing
+ * PASSWORD: There is no password required to access
  */
 public class AdventureGameView {
 
@@ -53,7 +57,7 @@ public class AdventureGameView {
     VBox objectsInInventory = new VBox(); //to hold inventory items
     ImageView roomImageView; //to hold room image
     TextField inputTextField; //for user input
-    // Voice voice;
+    Voice voice; // for text-to-speech
     time Time; // for keeping track of timer
     Label timer; // timer display
 
@@ -70,7 +74,7 @@ public class AdventureGameView {
         this.model = model;
         this.stage = stage;
         //set up timer
-        this.Time = new time(10, 0);
+        this.Time = new time( 10,0);
         this.timer = new Label();
         this.timer.setStyle("-fx-text-fill: white;");
         this.timer.setFont(new Font("Arial", 30));
@@ -90,11 +94,6 @@ public class AdventureGameView {
         colourChooser();
     }
 
-    /**
-     * colourChooser
-     * ___________________________
-     * This method determines whether to invert colours or not.
-     */
     public void colourChooser() {
 
         // GridPane, anyone?
@@ -284,9 +283,9 @@ public class AdventureGameView {
 
         // text-to-speech setup
         System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
-        // VoiceManager vm = VoiceManager.getInstance(); uncomment
-        // this.voice = vm.getVoice("kevin16");
-        // this.voice.allocate();
+        VoiceManager vm = VoiceManager.getInstance();
+        this.voice = vm.getVoice("kevin16");
+        this.voice.allocate();
 
     }
 
@@ -324,16 +323,6 @@ public class AdventureGameView {
         inputButton.setStyle("-fx-background-color: #17871b; -fx-text-fill: white;");
     }
 
-    /**
-     * customizeButton1
-     * ___________________________
-     * This method customizes a button with inverted colours. 
-     * See <customizeButton> for reference.
-     *  
-     * @param inputButton the button to make stylish :)
-     * @param w width
-     * @param h height
-     */
     private void customizeButton1(Button inputButton, int w, int h) {
         inputButton.setPrefSize(w, h);
         inputButton.setFont(new Font("Arial", 16));
@@ -758,7 +747,7 @@ public class AdventureGameView {
         gridPane.add(scI,2,1);
     }
 
-    /**
+    /*
      * Show the game instructions.
      *
      * If helpToggle is FALSE:
@@ -852,9 +841,6 @@ public class AdventureGameView {
         });
     }
 
-    /**
-     * This method handles the event related to the viewSuspects button.
-     */
     public void addViewSuspectsEvent() {
         viewSuspects.setOnAction(e -> {
             gridPane.requestFocus();
@@ -862,9 +848,7 @@ public class AdventureGameView {
         });
     }
 
-    /**
-     * This method handles the event related to the colourInverterButton
-     */
+
     public void addInvertColourEvent() {
         colourInverterButton.setOnAction(e -> {
             gridPane.requestFocus();
@@ -872,11 +856,8 @@ public class AdventureGameView {
         });
     }
 
-    /**
-     * intiUI2
-     * ___________________________
-     * This method initializes the GUI with inverted colours
-     */
+
+
     public void intiUI2() {
         gridPane.getChildren().clear();
         colourInvert = 1;
@@ -1004,15 +985,12 @@ public class AdventureGameView {
 
         // text-to-speech setup
         System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
-        // VoiceManager vm = VoiceManager.getInstance(); uncomment
-        // this.voice = vm.getVoice("kevin16");
-        // this.voice.allocate();
+        VoiceManager vm = VoiceManager.getInstance();
+        this.voice = vm.getVoice("kevin16");
+        this.voice.allocate();
 
     }
 
-    /**
-     * This method handles the event related to the normal colour button.
-     */
     public void addNormalColourEvent() {
         normalColourButton.setOnAction(e -> {
             gridPane.requestFocus();
@@ -1026,7 +1004,7 @@ public class AdventureGameView {
      */
     public void articulateRoomDescription() {
         String desc = this.model.player.getCurrentRoom().getRoomDescription();
-        // this.voice.speak(desc); uncomment
+        this.voice.speak(desc);
 
     }
 
