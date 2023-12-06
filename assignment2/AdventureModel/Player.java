@@ -18,11 +18,14 @@ public class Player implements Serializable {
      */
     public ArrayList<AdventureObject> inventory;
 
+    public ArrayList<AdventureClue> clueInventory;
+
     /**
      * Adventure Game Player Constructor
      */
     public Player(Room currentRoom) {
         this.inventory = new ArrayList<AdventureObject>();
+        this.clueInventory = new ArrayList<AdventureClue>();
         this.currentRoom = currentRoom;
     }
 
@@ -46,6 +49,18 @@ public class Player implements Serializable {
     }
 
 
+    public boolean takeClue(String clue){
+        if(this.currentRoom.checkIfClueInRoom(clue)){
+            AdventureClue Clue1 = this.currentRoom.getClue(clue);
+            this.currentRoom.removeGameClue(Clue1);
+            this.addToClueInventory(Clue1);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     /**
      * checkIfObjectInInventory
      * __________________________
@@ -57,6 +72,13 @@ public class Player implements Serializable {
     public boolean checkIfObjectInInventory(String s) {
         for(int i = 0; i<this.inventory.size();i++){
             if(this.inventory.get(i).getName().equals(s)) return true;
+        }
+        return false;
+    }
+
+    public boolean checkIfClueInInventory(String s) {
+        for(int i = 0; i<this.clueInventory.size();i++){
+            if(this.clueInventory.get(i).getName().equals(s)) return true;
         }
         return false;
     }
@@ -77,6 +99,17 @@ public class Player implements Serializable {
         }
     }
 
+    public void dropClue(String s) {
+        for(int i = 0; i<this.clueInventory.size();i++){
+            if(this.clueInventory.get(i).getName().equals(s)) {
+                this.currentRoom.addGameClue(this.clueInventory.get(i));
+                this.clueInventory.remove(i);
+            }
+        }
+    }
+
+
+
     /**
      * Setter method for the current room attribute.
      *
@@ -93,6 +126,10 @@ public class Player implements Serializable {
      */
     public void addToInventory(AdventureObject object) {
         this.inventory.add(object);
+    }
+
+    public void addToClueInventory(AdventureClue clue) {
+        this.clueInventory.add(clue);
     }
 
 
@@ -116,6 +153,14 @@ public class Player implements Serializable {
             objects.add(this.inventory.get(i).getName());
         }
         return objects;
+    }
+
+    public ArrayList<String> getClueInventory() {
+        ArrayList<String> clues = new ArrayList<>();
+        for(int i=0;i<this.clueInventory.size();i++){
+            clues.add(this.clueInventory.get(i).getName());
+        }
+        return clues;
     }
 
 
