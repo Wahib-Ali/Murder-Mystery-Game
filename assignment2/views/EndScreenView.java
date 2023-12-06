@@ -9,6 +9,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
+/**
+ * EndScreenView:
+ *
+ * Displays the ending that allows the user to guess the suspect and then displays the according winning or lossing screen. 
+ */
+
 public class EndScreenView {
     boolean win = false;
     public String suspectList;
